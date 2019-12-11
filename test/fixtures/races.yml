@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_resource: 1
+  name: MyString
+  speed: 1
+  ability_bonuses: 1
+  alignment: MyString
+  age: 1
+  size: MyString
+  size_description: MyString
+  starting_proficiencies: 1
+  languages: 1
+  traits: 1
+  subraces: 1
+
+two:
+  api_resource: 1
+  name: MyString
+  speed: 1
+  ability_bonuses: 1
+  alignment: MyString
+  age: 1
+  size: MyString
+  size_description: MyString
+  starting_proficiencies: 1
+  languages: 1
+  traits: 1
+  subraces: 1

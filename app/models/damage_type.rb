@@ -1,0 +1,2 @@
+class DamageType < ApplicationRecord
+end

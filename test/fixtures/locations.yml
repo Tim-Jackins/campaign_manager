@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  characters: 1
+  monsters: 1
+  map: MyString
+
+two:
+  id: 1
+  characters: 1
+  monsters: 1
+  map: MyString

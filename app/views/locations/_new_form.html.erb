@@ -1,0 +1,35 @@
+<%= form_with model: @creature, local: true do |form| %>
+
+<% if @creature.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@creature.errors.count, "error") %> prohibited
+    this creature from being saved:
+  </h2>
+  <ul>
+    <% @creature.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+<p>
+  <%= form.label :name %><br>
+  <%= form.text_field :name %>
+</p>
+</div>
+
+<div class="form-group">
+<p>
+  <%= form.label :map %><br>
+  <%= form.file_field :map %>
+</p>
+</div>
+
+<p>
+  <%= form.submit :class => 'btn btn-primary' %>
+</p>
+
+<% end %>

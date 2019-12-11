@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_resource: 1
+  name: 1
+  desc: 1
+  ability_bonus: 1
+  starting_proficiencies: 1
+  languages: 1
+  traits: 1
+
+two:
+  api_resource: 1
+  name: 1
+  desc: 1
+  ability_bonus: 1
+  starting_proficiencies: 1
+  languages: 1
+  traits: 1
