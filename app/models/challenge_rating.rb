@@ -1,0 +1,2 @@
+class ChallengeRating < ApplicationRecord
+end

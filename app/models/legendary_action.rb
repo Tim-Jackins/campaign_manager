@@ -1,0 +1,2 @@
+class LegendaryAction < ApplicationRecord
+end

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  api_id: MyString
+  api_index: 1
+  path: MyString
+  base_url: MyString
+  current_hp: 1
+  creature_info: MyText
+  custom_creature_info: MyText
+  drop: 1
+  fof: 1
+
+two:
+  id: 1
+  api_id: MyString
+  api_index: 1
+  path: MyString
+  base_url: MyString
+  current_hp: 1
+  creature_info: MyText
+  custom_creature_info: MyText
+  drop: 1
+  fof: 1

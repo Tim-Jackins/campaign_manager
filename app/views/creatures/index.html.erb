@@ -1,0 +1,13 @@
+<h1 class="mt-5">Creatures</h1>
+
+<% if @creatures %>
+
+Creatures
+
+<% else %>
+
+<h2>No Creatures yet</h2>
+
+<p>Go and make some: <%= link_to 'New creature', new_creature_path %></p>
+
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_resource: 1
+  name: MyString
+  level: 1
+  class: 1
+  subclass: 1
+  desc: MyText
+
+two:
+  api_resource: 1
+  name: MyString
+  level: 1
+  class: 1
+  subclass: 1
+  desc: MyText
