@@ -1,13 +1,36 @@
-<h1 class="mt-5">Creatures</h1>
+<h1 class="mt-5">Listing locations</h1>
 
-<% if @creatures %>
+<% if @locations.exists? %>
 
-Creatures
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+    </tr>
+  </thead>
+
+  <% @locations.each do |location| %>
+  <tr>
+    <td><%= location.name %></td>
+    <td><%= link_to 'Show', location_path(location) %></td>
+    <td><%= link_to 'Edit', edit_location_path(location) %></td>
+    <td><%= link_to 'Destroy', location_path(location),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+</table>
+
+<p>Or go make one: <%= link_to 'New location', new_location_path %></p>
 
 <% else %>
 
-<h2>No Creatures yet</h2>
+<h3>No Locations Yet</h3>
 
-<p>Go and make some: <%= link_to 'New creature', new_creature_path %></p>
+<p>Go and make some: <%= link_to 'New location', new_location_path %></p>
 
 <% end %>
+

@@ -10,27 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_225803) do
-
-  create_table "abilities", force: :cascade do |t|
-    t.string "name"
-    t.text "desc"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
+ActiveRecord::Schema.define(version: 2019_12_13_103613) do
 
   create_table "ability_scores", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
-    t.text "desc"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "actions", force: :cascade do |t|
-    t.string "damage_dice"
-    t.string "attack_bonus"
-    t.string "name"
     t.text "desc"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -90,24 +74,14 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "api_resources", force: :cascade do |t|
-    t.string "base_url"
-    t.string "path"
-    t.integer "api_id"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "campaigns", force: :cascade do |t|
     t.string "name"
+    t.text "summary"
     t.text "notes"
-    t.integer "locations_id", null: false
-    t.integer "owner_id"
+    t.integer "locations_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["locations_id"], name: "index_campaigns_on_locations_id"
-    t.index ["owner_id"], name: "index_campaigns_on_owner_id"
   end
 
   create_table "challenge_ratings", force: :cascade do |t|
@@ -125,13 +99,14 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
   end
 
   create_table "creatures", force: :cascade do |t|
-    t.boolean "fof"
     t.string "name"
     t.string "size"
-    t.string "type"
+    t.string "body_type"
+    t.string "sub_body_type"
     t.string "tag"
     t.string "alignment"
     t.integer "armor_class"
+    t.string "armor_name"
     t.integer "hit_points"
     t.string "hit_dice"
     t.integer "speed"
@@ -145,34 +120,32 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
     t.integer "intelligence"
     t.integer "wisdom"
     t.integer "charisma"
-    t.integer "damage_vulnerabilities_id"
-    t.integer "damage_resistances_id"
-    t.integer "damage_immunities_id"
-    t.integer "condition_immunities_id"
+    t.integer "strength_save"
+    t.integer "dexterity_save"
+    t.integer "constitution_save"
+    t.integer "intelligence_save"
+    t.integer "wisdom_save"
+    t.integer "charisma_save"
+    t.string "damage_vulnerabilities"
+    t.string "damage_resistances"
+    t.string "damage_immunities"
+    t.string "condition_immunities"
     t.integer "blindsight"
     t.integer "darkvision"
     t.integer "tremorsense"
     t.integer "truesight"
     t.integer "telepathy"
     t.integer "challenge_rating"
-    t.integer "skills_id"
-    t.integer "languages_id"
-    t.integer "saving_throws_id"
-    t.integer "special_abilities_id", null: false
-    t.integer "actions_id", null: false
-    t.integer "legendary_actions_id", null: false
+    t.string "skills"
+    t.string "languages"
+    t.text "spells_json"
+    t.text "actions_json"
+    t.text "special_abilities_json"
+    t.text "reactions_json"
+    t.text "legendary_desc"
+    t.text "legendary_actions_json"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["actions_id"], name: "index_creatures_on_actions_id"
-    t.index ["condition_immunities_id"], name: "index_creatures_on_condition_immunities_id"
-    t.index ["damage_immunities_id"], name: "index_creatures_on_damage_immunities_id"
-    t.index ["damage_resistances_id"], name: "index_creatures_on_damage_resistances_id"
-    t.index ["damage_vulnerabilities_id"], name: "index_creatures_on_damage_vulnerabilities_id"
-    t.index ["languages_id"], name: "index_creatures_on_languages_id"
-    t.index ["legendary_actions_id"], name: "index_creatures_on_legendary_actions_id"
-    t.index ["saving_throws_id"], name: "index_creatures_on_saving_throws_id"
-    t.index ["skills_id"], name: "index_creatures_on_skills_id"
-    t.index ["special_abilities_id"], name: "index_creatures_on_special_abilities_id"
   end
 
   create_table "damage_types", force: :cascade do |t|
@@ -183,21 +156,34 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
 
   create_table "drops", force: :cascade do |t|
     t.integer "money"
+    t.boolean "fof"
+    t.integer "creature_id", null: false
     t.integer "items_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["creature_id"], name: "index_drops_on_creature_id"
     t.index ["items_id"], name: "index_drops_on_items_id"
   end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "cost"
-    t.string "item_category"
-    t.text "category_specific_info"
-    t.integer "api_resource_id", null: false
+    t.text "item_category"
+    t.integer "weight"
+    t.string "damage_dice"
+    t.string "damage_type"
+    t.integer "range_short"
+    t.integer "range_long"
+    t.text "weapon_properties"
+    t.integer "throw_range_short"
+    t.integer "throw_range_long"
+    t.text "armor_class_json"
+    t.text "str_minimum"
+    t.text "stealth_disadvantage"
+    t.string "gear_category"
+    t.text "desc"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["api_resource_id"], name: "index_items_on_api_resource_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -208,41 +194,12 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "legendary_actions", force: :cascade do |t|
-    t.string "name"
-    t.text "desc"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "locations", force: :cascade do |t|
     t.string "name"
-    t.integer "npcs_id"
-    t.integer "monsters_id"
+    t.integer "campaign_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["monsters_id"], name: "index_locations_on_monsters_id"
-    t.index ["npcs_id"], name: "index_locations_on_npcs_id"
-  end
-
-  create_table "monsters", force: :cascade do |t|
-    t.string "area"
-    t.integer "location_id"
-    t.integer "creature_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["creature_id"], name: "index_monsters_on_creature_id"
-    t.index ["location_id"], name: "index_monsters_on_location_id"
-  end
-
-  create_table "npcs", force: :cascade do |t|
-    t.string "area"
-    t.integer "location_id"
-    t.integer "creature_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["creature_id"], name: "index_npcs_on_creature_id"
-    t.index ["location_id"], name: "index_npcs_on_location_id"
+    t.index ["campaign_id"], name: "index_locations_on_campaign_id"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -286,26 +243,17 @@ ActiveRecord::Schema.define(version: 2019_12_09_225803) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weapon_properties", force: :cascade do |t|
+    t.string "name"
+    t.text "desc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "campaigns", "locations", column: "locations_id"
-  add_foreign_key "campaigns", "user", column: "owner_id"
-  add_foreign_key "creatures", "ability_score", column: "saving_throws_id"
-  add_foreign_key "creatures", "actions", column: "actions_id"
-  add_foreign_key "creatures", "condition_immunities", column: "condition_immunities_id"
-  add_foreign_key "creatures", "damage_immunities", column: "damage_immunities_id"
-  add_foreign_key "creatures", "damage_resistances", column: "damage_resistances_id"
-  add_foreign_key "creatures", "damage_vulnerabilities", column: "damage_vulnerabilities_id"
-  add_foreign_key "creatures", "languages", column: "languages_id"
-  add_foreign_key "creatures", "legendary_actions", column: "legendary_actions_id"
-  add_foreign_key "creatures", "skills", column: "skills_id"
-  add_foreign_key "creatures", "special_abilities", column: "special_abilities_id"
+  add_foreign_key "drops", "creatures"
   add_foreign_key "drops", "items", column: "items_id"
-  add_foreign_key "items", "api_resources"
-  add_foreign_key "locations", "creature", column: "monsters_id"
-  add_foreign_key "locations", "creature", column: "npcs_id"
-  add_foreign_key "monsters", "creatures"
-  add_foreign_key "monsters", "locations"
-  add_foreign_key "npcs", "creatures"
-  add_foreign_key "npcs", "locations"
+  add_foreign_key "locations", "campaigns"
   add_foreign_key "skills", "ability_scores"
 end

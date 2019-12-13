@@ -1,5 +1,4 @@
 class Location < ApplicationRecord
-  belongs_to :campaign
-  has_many :creatures
-  has_one_attached :map
+  belongs_to :campaign, dependent: :destroy
+  has_many :drops
 end

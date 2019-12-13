@@ -1,5 +1,14 @@
 <h1 class="mt-5">New Creature</h1>
 
+<%= javascript_pack_tag 'new_creature' %>
+
+<div class="form-group">
+  <p>
+    <button id="fill_with_api" class="btn btn-primary">Fill with API</button>
+    <input type="text" id="api_link" class="w-75" value=<%= @default_base_url %> >
+  </p>
+</div>
+
 <%= render 'new_form' %>
 
 <%= link_to 'Back', creatures_path %>

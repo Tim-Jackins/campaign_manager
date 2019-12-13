@@ -1,14 +1,15 @@
 class CreateCreatures < ActiveRecord::Migration[6.0]
   def change
     create_table :creatures do |t|
-      t.boolean :fof
       t.string :name
       t.string :size
-      t.string :type
+      t.string :body_type
+      t.string :sub_body_type
       t.string :tag
       t.string :alignment
 
       t.integer :armor_class
+      t.string :armor_name
       t.integer :hit_points
       t.string :hit_dice
 
@@ -32,10 +33,10 @@ class CreateCreatures < ActiveRecord::Migration[6.0]
       t.integer :wisdom_save
       t.integer :charisma_save
 
-      t.references :damage_vulnerabilities
-      t.references :damage_resistances
-      t.references :damage_immunities
-      t.references :condition_immunities
+      t.string :damage_vulnerabilities
+      t.string :damage_resistances
+      t.string :damage_immunities
+      t.string :condition_immunities
 
       t.integer :blindsight
       t.integer :darkvision

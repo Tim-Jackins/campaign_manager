@@ -1,0 +1,16 @@
+<h1 class="mt-5">Edit Creature</h1>
+
+<script>
+window.damage_vulnerabilities = '<%= @creature.damage_vulnerabilities %>'
+window.damage_resistances = '<%= @creature.damage_resistances %>'
+window.damage_immunities = '<%= @creature.damage_immunities %>'
+window.condition_immunities = '<%= @creature.condition_immunities %>'
+window.languages = '<%= @creature.languages %>'
+window.skills = '<%= @creature.skills %>'
+</script>
+
+<%= javascript_pack_tag 'new_creature' %>
+
+<%= render 'new_form' %>
+
+<%= link_to 'Back', creatures_path %>
