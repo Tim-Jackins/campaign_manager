@@ -1,6 +1,19 @@
-<h1 class="mt-5">New Creature</h1>
+<h1>New Location</h1>
+
+<% if @location.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@location.errors.count, "error") %> prohibited
+    this location from being saved:
+  </h2>
+  <ul>
+    <% @location.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
 <%= render 'new_form' %>
 
-<%= link_to 'Back', creatures_path %>
-
+<%= link_to 'Back', locations_path %>

@@ -20,6 +20,16 @@ load ability_score_seed_path
 skill_seed_path = seed_path + 'skills.seeds.rb'
 load skill_seed_path
 
+WeaponProperty.delete_all
+
+weapon_propertie_seed_path = seed_path + 'weapon_properties.seeds.rb'
+load weapon_propertie_seed_path
+
+Item.delete_all
+
+item_seed_path = seed_path + 'items.seeds.rb'
+load item_seed_path
+
 DamageType.delete_all
 
 damage_types = %w[
@@ -55,7 +65,8 @@ alignment_choices = {
   'Chaotic Neutral' => "A chaotic neutral character follows his whims. He is an individualist first and last. He values his own liberty but doesn't strive to protect others' freedom. He avoids authority, resents restrictions, and challenges traditions. A chaotic neutral character does not intentionally disrupt organizations as part of a campaign of anarchy. To do so, he would have to be motivated either by good (and a desire to liberate others) or evil (and a desire to make those different from himself suffer). A chaotic neutral character may be unpredictable, but his behavior is not totally random. He is not as likely to jump off a bridge as to cross it.",
   'Lawful Evil' => 'A lawful evil villain methodically takes what he wants within the limits of his code of conduct without regard for whom it hurts. He cares about tradition, loyalty, and order but not about freedom, dignity, or life. He plays by the rules but without mercy or compassion. He is comfortable in a hierarchy and would like to rule, but is willing to serve. He condemns others not according to their actions but according to race, religion, homeland, or social rank. He is loath to break laws or promises.',
   'Neutral Evil' => "A neutral evil villain does whatever she can get away with. She is out for herself, pure and simple. She sheds no tears for those she kills, whether for profit, sport, or convenience. She has no love of order and holds no illusion that following laws, traditions, or codes would make her any better or more noble. On the other hand, she doesn't have the restless nature or love of conflict that a chaotic evil villain has.",
-  'Chaotic Evil' => 'A chaotic evil character does whatever his greed, hatred, and lust for destruction drive him to do. He is hot-tempered, vicious, arbitrarily violent, and unpredictable. If he is simply out for whatever he can get, he is ruthless and brutal. If he is committed to the spread of evil and chaos, he is even worse. Thankfully, his plans are haphazard, and any groups he joins or forms are poorly organized. Typically, chaotic evil people can be made to work together only by force, and their leader lasts only as long as he can thwart attempts to topple or assassinate him.'
+  'Chaotic Evil' => 'A chaotic evil character does whatever his greed, hatred, and lust for destruction drive him to do. He is hot-tempered, vicious, arbitrarily violent, and unpredictable. If he is simply out for whatever he can get, he is ruthless and brutal. If he is committed to the spread of evil and chaos, he is even worse. Thankfully, his plans are haphazard, and any groups he joins or forms are poorly organized. Typically, chaotic evil people can be made to work together only by force, and their leader lasts only as long as he can thwart attempts to topple or assassinate him.',
+  'Unaligned' => 'Creature has no alignment'
 }
 
 alignment_choices.each do |name,desc|
@@ -140,7 +151,21 @@ challenge_ratings = [
   ['8',   3_900],
   ['9',   5_000],
   ['10',  5_900],
-  ['17',  18_000]
+  ['17',  18_000],
+  ['11',  7_200],
+  ['12',  8_400],
+  ['13',  10_000],
+  ['14',  11_500],
+  ['15',  13_000],
+  ['16',  15_000],
+  ['17',  18_000],
+  ['18',  20_000],
+  ['20',  25_000],
+  ['21',  33_000],
+  ['22',  41_000],
+  ['23',  50_000],
+  ['24',  62_000],
+  ['30',  155_000]
 ]
 
 challenge_ratings.each do |rating|

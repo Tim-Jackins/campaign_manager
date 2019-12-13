@@ -1,0 +1,122 @@
+<style>
+h4 {
+  font-size: 0.9rem !important;
+}
+</style>
+
+<stat-block>
+  <creature-heading>
+    <h1><%= @item.name %></h1>
+    <h2><%= @item.item_category %></h2>
+  </creature-heading>
+
+  <top-stats>
+    <property-line>
+      <h4>Cost.</h4>
+      <p><%= @item.cost %></p>
+    </property-line>
+    <property-line>
+      <h4>Weight.</h4>
+      <p><%= @item.weight %></p>
+    </property-line>
+    
+  </top-stats>
+  
+  <% if @item.item_category == 'Weapon' %>
+  <h3>Weapon</h3>
+  
+  <% if @item.damage_dice %>
+    <property-block>
+    <h4>Damage Dice.</h4>
+    <p><%= @item.damage_dice %></p>
+    </property-block>
+  <% end %>
+
+  <% if @item.damage_type %>
+    <property-block>
+    <h4>Damage Type.</h4>
+    <p><%= @item.damage_type %></p>
+    </property-block>
+  <% end %>
+
+  <% if @item.range_short %>
+    <property-block>
+    <h4>Melee Range.</h4>
+    <p><%= "#{@item.range_short}ft" %><% if @item.range_long %> <%="/#{@item.range_long}ft" %> <% end %></p>
+    </property-block>
+  <% end %>
+  
+  <% if @item.weapon_properties %>
+    <property-block>
+    <h4>Weapon Properties.</h4>
+    <p><%= @item.weapon_properties %></p>
+    </property-block>
+  <% end %>
+
+  <% if @item.throw_range_short %>
+    <property-block>
+    <h4>Throw Range.</h4>
+    <p><%= "#{@item.throw_range_short}ft" %><% if @item.throw_range_long %> <%="/#{@item.throw_range_long}ft" %> <% end %></p>
+    </property-block>
+  <% end %>
+  <% end %>
+
+  <% if @item.item_category == 'Armor' %>
+  <h3>Armor</h3>
+
+  <% if @item.armor_class_hash['base'] %>
+    <property-block>
+    <h4>Armor Class.</h4>
+    <p><%= @item.armor_class_hash['base'] %></p>
+    </property-block>
+  <% end %>
+  
+  <% if @item.str_minimum %>
+    <property-block>
+    <h4>Strength Minimum.</h4>
+    <p><%= @item.str_minimum %></p>
+    </property-block>
+  <% end %>
+
+  <% if @item.armor_class_hash %>
+    <property-block>
+    <h4>Dexterity bonus.</h4>
+    <% if @item.armor_class_hash['dex_bonus'] %>
+    <p><%= "You may use a dexterity bonus with a max of #{@item.armor_class_hash['max_bonus']}" %></p>
+    <% else %>
+    <p>You gain no dexterity bonus with this armor.</p>
+    <% end %>
+    </property-block>
+  <% end %>
+
+  <% if @item.stealth_disadvantage %>
+    <property-block>
+    <h4>Stealthiness.</h4>
+    <% if @item.stealth_disadvantage %>
+    <p>Roll for stealth at a disvantage.</p>
+    <% else %>
+    <p>This armor doesn't effect stealth.</p>
+    <% end %>
+    </property-block>
+  <% end %>
+  <% end %>
+
+  <% if @item.item_category == 'Adventuring Gear' %>
+  <h3>Adventuring Gear</h3>
+
+  <% if @item.gear_category %>
+    <property-block>
+    <h4>Gear Category.</h4>
+    <p><%= @item.gear_category %></p>
+    </property-block>
+  <% end %>
+  
+  <% if @item.desc %>
+    <property-block>
+    <h4>Description.</h4>
+    <p><%= @item.desc %></p>
+    </property-block>
+  <% end %>
+
+  <% end %>
+</stat-block>

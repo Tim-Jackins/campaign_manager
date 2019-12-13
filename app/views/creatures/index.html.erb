@@ -1,12 +1,34 @@
 <h1 class="mt-5">Creatures</h1>
 
-<% if @creatures %>
+<% if @creatures.exists? %>
 
-Creatures
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+    </tr>
+  </thead>
+
+  <% @creatures.each do |creature| %>
+  <tr>
+    <td><%= creature.name %></td>
+    <td><%= link_to 'Show', creature_path(creature) %></td>
+    <td><%= link_to 'Edit', edit_creature_path(creature) %></td>
+    <td><%= link_to 'Destroy', creature_path(creature),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+</table>
+
+<p>Or go make one: <%= link_to 'New creature', new_creature_path %></p>
 
 <% else %>
 
-<h2>No Creatures yet</h2>
+<h3>No Creatures yet</h3>
 
 <p>Go and make some: <%= link_to 'New creature', new_creature_path %></p>
 

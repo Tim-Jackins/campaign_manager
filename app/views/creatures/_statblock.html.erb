@@ -1,0 +1,192 @@
+<style>
+h4 {
+  font-size: 0.9rem !important;
+}
+</style>
+
+<stat-block>
+  <creature-heading>
+    <h1><%= @creature.name %></h1>
+    <h2><%= @creature.size %> <%= @creature.body_type %>, <%= @creature.alignment %></h2>
+  </creature-heading>
+  <top-stats>
+    <property-line>
+      <h4>Armor Class</h4>
+      <p><%= @creature.armor_class %> (<%= @creature.armor_name %>)</p>
+    </property-line>
+    <property-line>
+      <h4>Hit Points</h4>
+      <p><%= @creature.hit_points %> (<%= @creature.hit_dice %>)</p>
+    </property-line>
+
+    <property-line>
+      <h4>Speed</h4>
+      <p><%= "#{@creature.speed}ft" %></p>
+    </property-line>
+    
+    <% if @creature.burrow_speed.positive? %>
+      <property-line>
+      <h4>Burrow Speed</h4>
+      <p><%= " #{@creature.burrow_speed}ft" %></p>
+      </property-line>
+    <% end %>
+
+    <% if @creature.climb_speed.positive? %>
+      <property-line>
+      <h4>Climb Speed</h4>
+      <p><%= " #{@creature.climb_speed}ft" %></p>
+      </property-line>
+    <% end %>
+
+    <% if @creature.fly_speed.positive? %>
+      <property-line>
+      <h4>Fly Speed</h4>
+      <p><%= " #{@creature.fly_speed}ft" %></p>
+      </property-line>
+    <% end %>
+
+    <% if @creature.swim_speed.positive? %>
+      <property-line>
+      <h4>Swim Speed</h4>
+      <p><%= " #{@creature.swim_speed}ft" %></p>
+      </property-line>
+    <% end %>
+
+    
+    
+    <abilities-block
+      data-cha=<%= @creature.charisma %>
+      data-con=<%= @creature.constitution %>
+      data-dex=<%= @creature.dexterity %>
+      data-int=<%= @creature.intelligence %>
+      data-str=<%= @creature.strength %>
+      data-wis=<%= @creature.wisdom %>
+    ></abilities-block>
+
+    <% if (
+      @creature.strength_save +
+      @creature.dexterity_save +
+      @creature.constitution_save +
+      @creature.intelligence_save +
+      @creature.wisdom_save +
+      @creature.charisma_save
+    ) > 0 %>
+    <property-line>
+    <h4>Saving Throws</h4>
+    <p>
+    <% if @creature.strength_save > 0 %> <%= "Str +#{@creature.strength_save}" %> <% end %>
+    <% if @creature.dexterity_save > 0 %> <%= "Dex +#{@creature.dexterity_save}" %> <% end %>
+    <% if @creature.constitution_save > 0 %> <%= "Con +#{@creature.constitution_save}" %> <% end %>
+    <% if @creature.intelligence_save > 0 %> <%= "Int +#{@creature.intelligence_save}" %> <% end %>
+    <% if @creature.wisdom_save > 0 %> <%= "Wis +#{@creature.wisdom_save}" %> <% end %>
+    <% if @creature.charisma_save > 0 %> <%= "Cha +#{@creature.charisma_save}" %> <% end %>
+    </p>
+    </property-line>
+    <% end %>
+
+    <% if @creature.skills %>
+    <property-line>
+    <h4>Skills</h4>
+    <p>
+    <% @creature.skills.split(', ').each do |skill| %>
+      <%= "#{skill} +#{@creature.get_modifier(@skill_to_ability_score[skill]) + @creature.get_proficiency_bonus}" %>
+    <% end %>
+    </p>
+    </property-line>
+    <% end %>
+    
+    <% if @creature.damage_vulnerabilities.length.positive? %>
+    <property-line>
+      <h4>Damage Vulnerabilities</h4>
+      <p><%= @creature.damage_vulnerabilities %></p>
+    </property-line>
+    <% end %>
+
+    <% if @creature.damage_resistances.length.positive? %>
+    <property-line>
+      <h4>Damage Resistances</h4>
+      <p><%= @creature.damage_resistances %></p>
+    </property-line>
+    <% end %>
+
+    <% if @creature.damage_immunities.length.positive? %>
+    <property-line>
+      <h4>Damage Immunities</h4>
+      <p><%= @creature.damage_immunities %></p>
+    </property-line>
+    <% end %>
+
+    <% if @creature.condition_immunities.length.positive? %>
+    <property-line>
+      <h4>Condition Immunities</h4>
+      <p><%= @creature.condition_immunities %></p>
+    </property-line>
+    <% end %>
+
+    <property-line>
+    <h4>Saving Throws</h4>
+    <p>
+    <% if @creature.blindsight > 0 %> <%= "Blindsight #{@creature.blindsight} Ft. " %> <% end %>
+    <% if @creature.darkvision > 0 %> <%= "Darkvision #{@creature.darkvision} Ft. " %> <% end %>
+    <% if @creature.tremorsense > 0 %> <%= "Tremorsense #{@creature.tremorsense} Ft. " %> <% end %>
+    <% if @creature.truesight > 0 %> <%= "Truesight #{@creature.truesight} Ft. " %> <% end %>
+    <% if @creature.telepathy > 0 %> <%= "Telepathy #{@creature.telepathy} Ft. " %> <% end %>
+    <%= "Passive Perception #{@creature.get_passive_perception()}" %>
+    </p>
+    </property-line>
+    
+    <property-line>
+      <h4>Languages</h4>
+      <p><%= @creature.languages %></p>
+    </property-line>
+    
+    
+    <property-line>
+      <h4>Challenge</h4>
+      <p><%= "#{@creature.challenge_rating} (#{@rating_to_xp[String(@creature.challenge_rating)]} XP)" %></p>
+    </property-line>
+  </top-stats>
+  
+  
+  <% @creature.special_abilities_hash.each do |special_abilitie| %>
+  <property-block>
+  <h4><%= special_abilitie['name'] %>.</h4>
+  <p><%= special_abilitie['desc'] %></p>
+  </property-block>
+  <% end %>
+
+  <% if @creature.actions_hash.length > 0 %>
+  <h3>Actions</h3>
+  <% end %>
+  <% @creature.actions_hash.each do |action| %>
+  <property-block>
+  <h4><%= action['name'] %>.</h4>
+  <p><%= action['desc'] %></p>
+  </property-block>
+  <% end %>
+
+  <% if @creature.reactions_hash.length > 0 %>
+  <h3>Reactions</h3>
+  <% end %>
+  <% @creature.reactions_hash.each do |reaction| %>
+  <property-block>
+  <h4><%= reaction['name'] %>.</h4>
+  <p><%= reaction['desc'] %></p>
+  </property-block>
+  <% end %>
+
+  <% if @creature.legendary_actions_hash.length > 0 %>
+  <h3>Legendary Actions</h3>
+  <% end %>
+  <% @creature.legendary_actions_hash.each do |legendary_action| %>
+  <property-block>
+  <h4><%= legendary_action['name'] %>.</h4>
+  <p><%= legendary_action['desc'] %></p>
+  </property-block>
+  <% end %>
+
+  
+
+
+  
+</stat-block>

@@ -1,2 +1,36 @@
-<h1>Listing campaigns</h1>
+<h1 class="mt-5">Listing campaigns</h1>
+
+<% if @campaigns.exists? %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
+    </tr>
+  </thead>
+
+  <% @campaigns.each do |campaign| %>
+  <tr>
+    <td><%= campaign.name %></td>
+    <td><%= link_to 'Show', campaign_path(campaign) %></td>
+    <td><%= link_to 'Edit', edit_campaign_path(campaign) %></td>
+    <td><%= link_to 'Destroy', campaign_path(campaign),
+      method: :delete,
+      data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+  <% end %>
+</table>
+
+<p>Or go make one: <%= link_to 'New campaign', new_campaign_path %></p>
+
+<% else %>
+
+<h3>No Campaigns Yet</h3>
+
+<p>Go and make some: <%= link_to 'New campaign', new_campaign_path %></p>
+
+<% end %>
 

@@ -12,11 +12,11 @@
       </ul>
     </div>
   <% end %>
-  
-  <%= form.hidden_field :actions_json %>
-  <%= form.hidden_field :special_abilities_json %>
-  <%= form.hidden_field :reactions_json %>
-  <%= form.hidden_field :legendary_actions_json %>
+
+  <%= form.hidden_field :special_abilities_json, value: String(@creature.special_abilities_json) %>
+  <%= form.hidden_field :actions_json, value: String(@creature.actions_json) %>
+  <%= form.hidden_field :reactions_json, value: String(@creature.reactions_json) %>
+  <%= form.hidden_field :legendary_actions_json, value: String(@creature.legendary_actions_json) %>
 
   <div class="container">
     <div class="row">
@@ -49,16 +49,26 @@
       <div class="col-sm">
         <div class="form-group">
           <p>
-            <%= form.label :type %><br>
-            <%= form.text_field :type %>
+            <%= form.label :tag %><br>
+            <%= form.text_field :tag %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <div class="form-group">
+          <p>
+            <%= form.label :body_type %><br>
+            <%= form.text_field :body_type %>
           </p>
         </div>
       </div>
       <div class="col-sm">
         <div class="form-group">
           <p>
-            <%= form.label :tag %><br>
-            <%= form.text_field :tag %>
+            <%= form.label :sub_body_type %><br>
+            <%= form.text_field :sub_body_type %>
           </p>
         </div>
       </div>
@@ -72,6 +82,16 @@
           </p>
         </div>
       </div>
+      <div class="col-sm">
+        <div class="form-group">
+          <p>
+            <%= form.label :armor_name %><br>
+            <%= form.text_field :armor_name %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm">
         <div class="form-group">
           <p>
@@ -152,7 +172,7 @@
           <td><%= form.number_field :constitution, max: '30', class: 'ability-score-pick', onKeyPress: "if(this.value.length==2) return false;" %></td>
           <td><%= form.number_field :intelligence, max: '30', class: 'ability-score-pick', onKeyPress: "if(this.value.length==2) return false;" %></td>
           <td><%= form.number_field :wisdom, max: '30', class: 'ability-score-pick', onKeyPress: "if(this.value.length==2) return false;" %></td>
-          <td><%= form.number_field :charisma, max: '30', class: 'ability-score-pick', onKeyPress: "if(this.value.length==2) return false;" %></td>
+          <td><%= form.number_field :charisma, vmax: '30', class: 'ability-score-pick', onKeyPress: "if(this.value.length==2) return false;" %></td>
         </tr>
       </tbody>
     </table>
@@ -170,10 +190,10 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= form.select(:damage_vulnerabilities, @damage_types.each, { prompt: 'None' }, { multiple: true, size: @damage_types.length+1  }) %></td>
-          <td><%= form.select(:damage_resistances, @damage_types.each, { prompt: 'None' }, { multiple: true, size: @damage_types.length+1  }) %></td>
-          <td><%= form.select(:damage_immunities, @damage_types.each, { prompt: 'None' }, { multiple: true, size: @damage_types.length+1  }) %></td>
-          <td><%= form.select(:condition_immunities, @conditions.each, { prompt: 'None' }, { multiple: true, size: @conditions.length+1  }) %></td>
+          <td><%= form.select(:damage_vulnerabilities, @damage_types.each, {}, { multiple: true, size: @damage_types.length }) %></td>
+          <td><%= form.select(:damage_resistances, @damage_types.each, {}, { multiple: true, size: @damage_types.length }) %></td>
+          <td><%= form.select(:damage_immunities, @damage_types.each, {}, { multiple: true, size: @damage_types.length }) %></td>
+          <td><%= form.select(:condition_immunities, @conditions.each, {}, { multiple: true, size: @conditions.length }) %></td>
         </tr>
       </tbody>
     </table>
@@ -199,14 +219,43 @@
         </tr>
       </tbody>
     </table>
+
+    <h3>Saves</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Strength">STR</em></td>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Dexterity">DEX</em></td>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Constitution">CON</em></td>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Intelligence">INT</em></td>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Wisdom">WIS</em></td>
+          <td scope="col"><em data-toggle="tooltip" data-original-title="Charisma">CHA</em></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= form.number_field :strength_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+          <td><%= form.number_field :dexterity_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+          <td><%= form.number_field :constitution_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+          <td><%= form.number_field :intelligence_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+          <td><%= form.number_field :wisdom_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+          <td><%= form.number_field :charisma_save, class: 'ability-score-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
+        </tr>
+      </tbody>
+    </table>
     
     <h3>Misc</h3>
     <small>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</small>
     <hr>
     <div class="form-group">
       <p>
-        <%= form.label :challenge_rating %><br>
-        <%= form.select(:challenge_rating, @challenge_ratings.map { |i| "#{i['rating']}: #{i['xp']}"}) %>
+        <%= form.label 'Challenge rating ({level}: {xp gain})' %><br>
+        
+        <select name="creature[challenge_rating]" id="creature_challenge_rating">
+        <% @challenge_ratings.each do |rating| %>
+        <option value="<%= rating['rating'] %>"> <%= "#{rating['rating']}: #{rating['xp']}" -%> </option>
+        <% end %>
+        </select>
       </p>
     </div>
 
@@ -222,30 +271,11 @@
       <div class="col-sm">
         <div class="form-group">
           <p>
-            <%= form.label :saving_throws %><br>
-            <%= form.select(:saving_throws, @ability_scores.each, { prompt: 'None' }, { multiple: true, size: @ability_scores.length+1  }) %>
-          </p>
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="form-group">
-          <p>
             <%= form.label :skills %><br>
             <%= form.select(:skills, @skills.each, { prompt: 'None' }, { multiple: true, size: @skills.length+1  }) %>
           </p>
         </div>
       </div>
-    </div>
-
-    <div class="form-group">
-      <p>
-        <%= form.label "Loyalty" %><br>
-        <%= form.radio_button :fof, 1 %>
-        Friend
-        <br>
-        <%= form.radio_button :fof, 0 %>
-        Foe
-      </p>
     </div>
 
     <h3>Abilities, Actions, and Reactions</h3>
@@ -268,7 +298,7 @@
       <div class="col-sm">
         <div class="form-group">
           <p>
-            <button id="new_ability" class="btn btn-primary">New Ability</button>
+            <button id="new_special_abilitie" class="btn btn-primary">New Special Ability</button>
           </p>
         </div>
       </div>
@@ -296,10 +326,10 @@
     </div>
 
     <div id="aarl_container">
-      <h4>Abilities</h4>
+      <h4>Special Abilities</h4>
 
-      <div id="ability_holder">
-        <ul id="ability_holder_list">
+      <div id="special_abilitie_holder">
+        <ul id="special_abilitie_holder_list">
         </ul>
       </div>
 
@@ -343,8 +373,6 @@
     t.text :legendary_desc
     t.text :legendary_actions_json
 
-
-
     <h2>IGNORE FOR NOW</h2>
     <div class="form-group">
       <p>
@@ -373,7 +401,7 @@
     </div>-->
     
     <p>
-      <%= form.submit :class => 'btn btn-primary' %>
+      <%= form.submit class: 'btn btn-primary' %>
     </p>
   </div>
 <% end %>

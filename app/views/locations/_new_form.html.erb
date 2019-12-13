@@ -1,13 +1,13 @@
-<%= form_with model: @creature, local: true do |form| %>
+<%= form_with model: @location, local: true do |form| %>
 
-<% if @creature.errors.any? %>
+<% if @location.errors.any? %>
 <div id="error_explanation">
   <h2>
-    <%= pluralize(@creature.errors.count, "error") %> prohibited
-    this creature from being saved:
+    <%= pluralize(@location.errors.count, "error") %> prohibited
+    this location from being saved:
   </h2>
   <ul>
-    <% @creature.errors.full_messages.each do |msg| %>
+    <% @location.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
     <% end %>
   </ul>
@@ -23,13 +23,13 @@
 
 <div class="form-group">
 <p>
-  <%= form.label :map %><br>
-  <%= form.file_field :map %>
+  <%= form.label :desc %><br>
+  <%= form.text_area :desc, class: 'w-75' %>
 </p>
 </div>
 
 <p>
-  <%= form.submit :class => 'btn btn-primary' %>
+  <%= form.submit class: 'btn btn-primary' %>
 </p>
 
 <% end %>
