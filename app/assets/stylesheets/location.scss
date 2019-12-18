@@ -1,3 +1,42 @@
 // Place all the styles related to the Location controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+
+img.card-img-top {
+  height: 225px;
+  width: 100%;
+}
+
+#dropbox {
+  // height: 5rem;
+  // width: 5rem;
+  // margin: 20px auto;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+}
+
+#fileSelector {
+  display: none;
+}
+
+#dropbox.highlight {
+  border-color: purple;
+}
+
+#preview img {
+  width: 6rem;
+  height: 100%;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+button {
+  background-color: #e67e22;
+  border: 2px solid #cf6d17;
+  color: #fff;
+  font-size: 15px;
+}
+
