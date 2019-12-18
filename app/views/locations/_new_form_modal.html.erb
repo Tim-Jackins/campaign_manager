@@ -1,0 +1,48 @@
+<%= javascript_pack_tag 'new_location' %>
+
+<div class="modal fade" id="new_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with(model: [ @campaign, @campaign.locations.build ], local: true) do |form| %>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Location</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <p>
+            <%= form.label :name %><br>
+            <%= form.text_field :name %>
+          </p>
+        </div>
+        <div class="form-group">
+          <p>
+            <%= form.label :desc %><br>
+            <%= form.text_area :desc, class: 'w-75' %>
+          </p>
+        </div>
+        <div class="form-group">
+          <p>
+            <%= form.label :image_link %><br>
+            <%= form.text_field :image_link %>
+            <button id="load_image" class="btn btn-info" >Confirm</button>
+          </p>
+          <%= form.label 'Preview:' %>
+          <div id="dropbox">
+            <div id="preview">
+              
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <%= form.submit class: 'btn btn-primary' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
