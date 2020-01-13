@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_13_103613) do
+ActiveRecord::Schema.define(version: 2020_01_12_021346) do
 
   create_table "ability_scores", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
-    t.text "desc"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -69,19 +69,31 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
 
   create_table "alignment_choices", force: :cascade do |t|
     t.string "name"
-    t.text "desc"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "campaigns", force: :cascade do |t|
+  create_table "buildings", force: :cascade do |t|
     t.string "name"
-    t.text "summary"
-    t.text "notes"
-    t.integer "locations_id"
+    t.text "description"
+    t.integer "location_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["locations_id"], name: "index_campaigns_on_locations_id"
+    t.index ["location_id"], name: "index_buildings_on_location_id"
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.text "general_information"
+    t.text "regional_information"
+    t.text "backstory"
+    t.text "rules"
+    t.text "notes"
+    t.integer "creator_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_campaigns_on_creator_id"
   end
 
   create_table "challenge_ratings", force: :cascade do |t|
@@ -91,9 +103,65 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "char_classes", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.integer "character_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_char_classes_on_character_id"
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.integer "creator_id"
+    t.integer "alignment_id"
+    t.string "name"
+    t.string "background"
+    t.string "player_name"
+    t.string "race"
+    t.integer "xp"
+    t.integer "strength"
+    t.integer "dexterity"
+    t.integer "constitution"
+    t.integer "wisdom"
+    t.integer "intelligence"
+    t.integer "charisma"
+    t.boolean "strength_save"
+    t.boolean "dexterity_save"
+    t.boolean "constitution_save"
+    t.boolean "wisdom_save"
+    t.boolean "intelligence_save"
+    t.boolean "charisma_save"
+    t.boolean "inspiration"
+    t.integer "proficiency_bonus"
+    t.integer "armor_class"
+    t.integer "initiative"
+    t.integer "speed"
+    t.integer "hp_max"
+    t.integer "current_hp"
+    t.integer "temporary_hp"
+    t.string "hit_dice"
+    t.integer "death_saves_success"
+    t.integer "death_saves_failure"
+    t.text "attack_json"
+    t.text "attack_desc"
+    t.text "proficiency_language_desc"
+    t.integer "copper_pieces"
+    t.integer "silver_pieces"
+    t.integer "electrum_pieces"
+    t.integer "gold_pieces"
+    t.integer "platinum_pieces"
+    t.integer "features_traits"
+    t.text "features_traits_desc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["alignment_id"], name: "index_characters_on_alignment_id"
+    t.index ["creator_id"], name: "index_characters_on_creator_id"
+  end
+
   create_table "conditions", force: :cascade do |t|
     t.string "name"
-    t.text "desc"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -157,12 +225,35 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
   create_table "drops", force: :cascade do |t|
     t.integer "money"
     t.boolean "fof"
-    t.integer "creature_id", null: false
-    t.integer "items_id", null: false
+    t.integer "creature_id"
+    t.integer "items_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creature_id"], name: "index_drops_on_creature_id"
     t.index ["items_id"], name: "index_drops_on_items_id"
+  end
+
+  create_table "dungeons", force: :cascade do |t|
+    t.string "name"
+    t.text "rooms"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "dungeonable_type"
+    t.integer "dungeonable_id"
+    t.index ["dungeonable_type", "dungeonable_id"], name: "index_dungeons_on_dungeonable_type_and_dungeonable_id"
+  end
+
+  create_table "encounters", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.string "type"
+    t.string "reward"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "encounterable_type"
+    t.integer "encounterable_id"
+    t.index ["encounterable_type", "encounterable_id"], name: "index_encounters_on_encounterable_type_and_encounterable_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -181,7 +272,7 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
     t.text "str_minimum"
     t.text "stealth_disadvantage"
     t.string "gear_category"
-    t.text "desc"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -196,16 +287,43 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
 
   create_table "locations", force: :cascade do |t|
     t.string "name"
+    t.string "short_description"
+    t.text "description"
+    t.boolean "is_natural"
     t.integer "campaign_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["campaign_id"], name: "index_locations_on_campaign_id"
   end
 
+  create_table "main_quests", force: :cascade do |t|
+    t.string "name"
+    t.string "short_description"
+    t.text "description"
+    t.integer "campaign_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_id"], name: "index_main_quests_on_campaign_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.string "name"
+    t.integer "level"
+    t.text "description"
+    t.string "reward"
+    t.integer "main_quest_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "questable_type"
+    t.integer "questable_id"
+    t.index ["main_quest_id"], name: "index_quests_on_main_quest_id"
+    t.index ["questable_type", "questable_id"], name: "index_quests_on_questable_type_and_questable_id"
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string "name"
-    t.text "desc"
-    t.integer "ability_score_id", null: false
+    t.text "description"
+    t.integer "ability_score_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ability_score_id"], name: "index_skills_on_ability_score_id"
@@ -213,7 +331,7 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
 
   create_table "spells", force: :cascade do |t|
     t.string "name"
-    t.text "desc"
+    t.text "description"
     t.text "higher_level"
     t.string "page"
     t.string "range"
@@ -232,6 +350,9 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -241,19 +362,26 @@ ActiveRecord::Schema.define(version: 2019_12_13_103613) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   create_table "weapon_properties", force: :cascade do |t|
     t.string "name"
-    t.text "desc"
+    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "campaigns", "locations", column: "locations_id"
+  add_foreign_key "buildings", "locations"
+  add_foreign_key "campaigns", "users", column: "creator_id"
+  add_foreign_key "char_classes", "characters"
+  add_foreign_key "characters", "alignment_choices", column: "alignment_id"
+  add_foreign_key "characters", "users", column: "creator_id"
   add_foreign_key "drops", "creatures"
   add_foreign_key "drops", "items", column: "items_id"
   add_foreign_key "locations", "campaigns"
+  add_foreign_key "main_quests", "campaigns"
+  add_foreign_key "quests", "main_quests"
   add_foreign_key "skills", "ability_scores"
 end

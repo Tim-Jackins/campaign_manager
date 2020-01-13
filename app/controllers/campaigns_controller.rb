@@ -5,6 +5,10 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
+    @location = @campaign.locations
+
+    renderer = Redcarpet::Render::HTML
+    @markdown = Redcarpet::Markdown.new renderer
   end
 
   def new
@@ -16,7 +20,6 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    puts params
     @campaign = Campaign.new(campaign_params)
 
     if @campaign.save

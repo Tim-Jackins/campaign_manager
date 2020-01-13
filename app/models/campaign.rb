@@ -1,3 +1,6 @@
 class Campaign < ApplicationRecord
-  has_many :locations
+  belongs_to :creator, class_name: 'User'
+
+  has_many :locations, dependent: :destroy
+  has_many :main_quests, dependent: :destroy
 end

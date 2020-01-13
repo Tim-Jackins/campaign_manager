@@ -76,7 +76,7 @@ open(url) do |items_request|
       desc = item['desc'].join(', ') if item.key?('desc')
 
       object[:gear_category] = gear_category
-      object[:desc] = desc
+      object[:description] = desc
     end
     Item.create(object)
   end

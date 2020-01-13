@@ -4,8 +4,8 @@ class CreateDrops < ActiveRecord::Migration[6.0]
       t.integer :money # In copper pieces
       t.boolean :fof
 
-      t.references :creature, null: false, foreign_key: true
-      t.references :items, null: false, foreign_key: true
+      t.references :creature, foreign_key: true
+      t.references :items, foreign_key: true
 
       t.timestamps
     end

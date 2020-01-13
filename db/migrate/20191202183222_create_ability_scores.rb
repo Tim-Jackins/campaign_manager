@@ -3,7 +3,7 @@ class CreateAbilityScores < ActiveRecord::Migration[6.0]
     create_table :ability_scores do |t|
       t.string :name
       t.string :full_name
-      t.text :desc
+      t.text :description
 
       t.timestamps
     end

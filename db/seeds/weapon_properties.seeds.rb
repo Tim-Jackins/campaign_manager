@@ -9,7 +9,7 @@ open(url) do |weapon_properties_request|
   weapon_properties.each do |weapon_propertie|
     object = {
       name: weapon_propertie['name'],
-      desc: weapon_propertie['desc'].join(', ')
+      description: weapon_propertie['desc'].join(', ')
     }
     WeaponProperty.create(object)
   end

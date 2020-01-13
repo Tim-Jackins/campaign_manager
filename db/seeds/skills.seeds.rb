@@ -10,7 +10,7 @@ open(url) do |skills_request|
     ability_score_name = skill['ability_score']['name']
     object = {
       name: skill['name'],
-      desc: skill['desc'].join(', ')
+      description: skill['desc'].join(', ')
     }
     ability_score = AbilityScore.find_by(name: ability_score_name)
     ability_score.skills.create(object)

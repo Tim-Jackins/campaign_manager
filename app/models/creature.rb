@@ -4,7 +4,7 @@ require 'json'
 
 class Creature < ApplicationRecord
   # Relations
-  belongs_to :drops
+  #belongs_to :drops
 
   # Methods
   def get_modifier as_name

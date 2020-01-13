@@ -6,31 +6,28 @@ require 'json'
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.delete_all
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 seed_path = File.join(Rails.root, 'db', 'seeds') + '/'
 
-Skill.delete_all
-AbilityScore.delete_all
+puts 'Creating Users as defined in ' + seed_path + 'users.seeds.rb'
+users_seed_path = seed_path + 'users.seeds.rb'
+load users_seed_path
 
+puts 'Creating Ability Scores as defined in ' + seed_path + 'ability_scores.seeds.rb'
 ability_score_seed_path = seed_path + 'ability_scores.seeds.rb'
 load ability_score_seed_path
 
+puts 'Creating Skills as defined in ' + seed_path + 'skills.seeds.rb'
 skill_seed_path = seed_path + 'skills.seeds.rb'
 load skill_seed_path
 
-WeaponProperty.delete_all
-
+puts 'Creating Weapon Properties as defined in ' + seed_path + 'weapon_properties.seeds.rb'
 weapon_propertie_seed_path = seed_path + 'weapon_properties.seeds.rb'
 load weapon_propertie_seed_path
 
-Item.delete_all
-
+puts 'Creating Items as defined in ' + seed_path + 'items.seeds.rb'
 item_seed_path = seed_path + 'items.seeds.rb'
 load item_seed_path
-
-DamageType.delete_all
 
 damage_types = %w[
   Acid
@@ -48,11 +45,11 @@ damage_types = %w[
   Thunder
 ]
 
+puts 'Creating Damage Types as defined in ' + seed_path[0..-7] + 'seeds.rb'
+
 damage_types.each do |type|
   DamageType.create!(name: type)
 end
-
-AlignmentChoice.delete_all
 
 # CITATION
 # Seed data from http://easydamus.com/alignment.html
@@ -69,11 +66,12 @@ alignment_choices = {
   'Unaligned' => 'Creature has no alignment'
 }
 
-alignment_choices.each do |name,desc|
-  AlignmentChoice.create!(name: name, desc: desc)
+puts 'Creating Alignment Choices as defined in ' + seed_path[0..-7] + 'seeds.rb'
+
+alignment_choices.each do |name, description|
+  AlignmentChoice.create!(name: name, description: description)
 end
 
-Condition.delete_all
 
 # CITATION
 # Seed data from https://roll20.net/compendium/dnd5e/Conditions#content
@@ -96,11 +94,11 @@ conditions = {
   'Exhaustion' => "Some Special Abilities and environmental Hazards, such as starvation and the long-­term Effects of freezing or scorching temperatures, can lead to a Special condition called exhaustion. Exhaustion is measured in six levels. An effect can give a creature one or more levels of exhaustion, as specified in the effect's description.\nExhaustion Effects Level Effect\n1 	Disadvantage on Ability Checks\n2 	Speed halved\n3 	Disadvantage on Attack rolls and Saving Throws\n4 	Hit point maximum halved\n5 	Speed reduced to 0\n6 	Death\nIf an already exhausted creature suffers another effect that causes exhaustion, its current level of exhaustion increases by the amount specified in the effect's description. A creature suffers the effect of its current level of exhaustion as well as all lower levels. For example, a creature suffering level 2 exhaustion has its speed halved and has disadvantage on Ability Checks. An effect that removes exhaustion reduces its level as specified in the effect's description, with all exhaustion Effects ending if a creature's exhaustion level is reduced below 1. Finishing a Long Rest reduces a creature's exhaustion level by 1, provided that the creature has also ingested some food and drink."
 }
 
-conditions.each do |name, desc|
-  Condition.create!(name: name, desc: desc)
-end
+puts 'Creating Conditions as defined in ' + seed_path[0..-7] + 'seeds.rb'
 
-Language.delete_all
+conditions.each do |name, description|
+  Condition.create!(name: name, description: description)
+end
 
 # CITATION
 # Seed data from https://5elanguages.com/
@@ -130,11 +128,11 @@ languages = [
   ['Undercommon', 'Elvish',    'Drow, Underdark traders']
 ]
 
+puts 'Creating Languages as defined in ' + seed_path[0..-7] + 'seeds.rb'
+
 languages.each do |language|
   Language.create!(name: language[0], script: language[1], typical_speakers: language[2])
 end
-
-ChallengeRating.delete_all
 
 challenge_ratings = [
   ['0',   10],
@@ -168,6 +166,16 @@ challenge_ratings = [
   ['30',  155_000]
 ]
 
+puts 'Creating Challenge Rating as defined in ' + seed_path[0..-7] + 'seeds.rb'
+
 challenge_ratings.each do |rating|
   ChallengeRating.create!(rating: rating[0], xp: rating[1])
 end
+
+puts 'Creating Characters as defined in ' + seed_path + 'characters.seeds.rb'
+characters_seed_path = seed_path + 'characters.seeds.rb'
+load characters_seed_path
+
+puts 'Creating Campaigns as defined in ' + seed_path + 'frostglade_tundra_campaign.seeds.rb'
+campaigns_seed_path = seed_path + 'frostglade_tundra_campaign.seeds.rb'
+load campaigns_seed_path

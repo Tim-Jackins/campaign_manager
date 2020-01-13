@@ -1,0 +1,2 @@
+module MainQuestHelper
+end
