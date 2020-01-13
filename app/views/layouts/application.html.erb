@@ -24,11 +24,9 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <!--<%= params[:controller] %>-->
-        <!--<a class="navbar-brand" href="#"></a>
-         <img src="<%= asset_path('dnd_logo.png') %>" style="height: auto;"> -->
-        
-        <a class="navbar-brand" href="#"><img src="<%= asset_path('dnd_logo.png') %>" class="img-responsive" alt=""/></a>
+        <!-- <%= params[:controller] %> -->
+        <!-- <a class="navbar-brand" href="#"></a>
+        <img src="<%= asset_path('dnd_logo.png') %>" style="height: auto;"> -->
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -39,13 +37,21 @@
               <a class="nav-link" href='/'>Home</a>
             </li>
             <% if params[:controller] == 'campaigns' %><li class="nav-item active"><% else %><li class="nav-item"><% end %>
-              <%= link_to('Campaigns', campaigns_path, class: 'nav-link') %>
+              <% if current_user %>
+                <%= link_to('Campaigns', campaigns_path, class: 'nav-link') %>
+              <% else %>
+                <%= link_to('Campaigns', campaigns_path, class: 'nav-link disabled') %>
+              <% end %>
             </li>
             <% if params[:controller] == 'creatures' %><li class="nav-item active"><% else %><li class="nav-item"><% end %>
               <%= link_to('Creatures', creatures_path, class: 'nav-link') %>
             </li>
             <% if params[:controller] == 'characters' %><li class="nav-item active"><% else %><li class="nav-item"><% end %>
-              <%= link_to('Characters', characters_path, class: 'nav-link') %>
+              <% if current_user %>
+                <%= link_to('Characters', characters_path, class: 'nav-link') %>
+              <% else %>
+                <%= link_to('Characters', characters_path, { class: 'nav-link disabled' }) %>
+              <% end %>
             </li>
             <% if params[:controller] == 'items' %><li class="nav-item active"><% else %><li class="nav-item"><% end %>
               <%= link_to('Items', items_path, class: 'nav-link') %>
@@ -55,24 +61,37 @@
             </li> %>
           </ul>
             <% if current_user %>
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, :class => "btn btn-outline-success my-2 my-sm-0" %>
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, :class => "btn btn-outline-danger my-2 my-sm-0" %>
             <% else %>
               <%= link_to 'Login', new_user_session_path, :class => "btn btn-outline-success my-2 my-sm-0" %>
+              <%= link_to 'Sign up', new_user_registration_path, :class => "btn btn-outline-info my-2 my-sm-0 ml-2" %>
             <% end %>
-          
         </div>
       </nav>
     </header>
     <main role="main" class="container">
       <% flash.each do |key, value| %>
-        <div class="alert alert-warning fade in alert-dismissible show" style="margin-top:18px;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true" style="font-size:20px">×</span>
-        </button>    <strong>Key</strong> <%= value %>
-      </div>
+        <% if key == 'error' %>
+          <div class="alert alert-danger fade in alert-dismissible show" style="margin-top:18px;">
+        <% elsif key == 'warning' %>
+          <div class="alert alert-warning fade in alert-dismissible show" style="margin-top:18px;">
+        <% elsif key == 'notice' %>
+          <div class="alert alert-success fade in alert-dismissible show" style="margin-top:18px;">
+        <% elsif key == 'alert' %>
+          <div class="alert alert-primary fade in alert-dismissible show" style="margin-top:18px;">
+        <% else %>
+          <div class="alert alert-dark fade in alert-dismissible show" style="margin-top:18px;">
+        <% end %>
+
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true" style="font-size:20px">×</span>
+          </button>
+          <%= value %>
+        </div>
       <% end %>
       <%= yield %>
     </main>
+    
       <!-- Optional JavaScript -->
       <!-- Popper.js, then Bootstrap JS, then Holder.js -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

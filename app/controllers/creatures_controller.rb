@@ -63,6 +63,16 @@ class CreaturesController < ApplicationController
     if @creature.save
       redirect_to @creature
     else
+      @default_base_url = Rails.application.config.dnd_base_url + 'monsters'
+      @alignment_choices = AlignmentChoice.pluck('name')
+      @damage_types = DamageType.pluck('name')
+      @conditions = Condition.pluck('name')
+      @languages = Language.pluck('name')
+      @ability_scores = AbilityScore.pluck('full_name')
+      @skills = Skill.pluck('name')
+
+      challenge_ratings_json = ChallengeRating.all.to_json(only: [:rating, :xp])
+      @challenge_ratings = JSON.parse(challenge_ratings_json)
       render 'new'
     end
   end
@@ -79,6 +89,16 @@ class CreaturesController < ApplicationController
     if @creature.update(creature_params)
       redirect_to @creature
     else
+      @default_base_url = Rails.application.config.dnd_base_url + 'monsters'
+      @alignment_choices = AlignmentChoice.pluck('name')
+      @damage_types = DamageType.pluck('name')
+      @conditions = Condition.pluck('name')
+      @languages = Language.pluck('name')
+      @ability_scores = AbilityScore.pluck('full_name')
+      @skills = Skill.pluck('name')
+
+      challenge_ratings_json = ChallengeRating.all.to_json(only: [:rating, :xp])
+      @challenge_ratings = JSON.parse(challenge_ratings_json)
       render 'edit'
     end
   end

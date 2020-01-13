@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateItems < ActiveRecord::Migration[6.0]
   def change
     create_table :items do |t|
@@ -23,7 +25,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
 
       # Equipment
       t.string :gear_category
-      t.text :desc
+      t.text :description
 
       t.timestamps
     end

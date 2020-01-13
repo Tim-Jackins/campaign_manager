@@ -10,7 +10,7 @@ open(url) do |ability_scores_request|
     object = {
       name: ability_score['name'],
       full_name: ability_score['full_name'],
-      desc: ability_score['desc'].join(', ')
+      description: ability_score['desc'].join(', ')
     }
     AbilityScore.create(object)
   end
