@@ -51,7 +51,14 @@ div.initiative label input {
   display: none  ;
 }
 
-textarea {
+.otherprofs > textarea,
+.equipment > div > textarea,
+.attacksandspellcasting > div > textarea,
+.personality > textarea,
+.ideals > textarea,
+.bonds > textarea,
+.flaws > textarea,
+.features > div > textarea {
   font-size: 12px ;
   text-align: left ;
   width: calc(100% - 20px - 2px) ;
