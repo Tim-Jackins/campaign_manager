@@ -23,11 +23,13 @@
   </head>
   <body>
     <header>
+      <% unless params[:controller] == 'devise/sessions' %>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <!-- <%= params[:controller] %> -->
         <!-- <a class="navbar-brand" href="#"></a>
         <img src="<%= asset_path('dnd_logo.png') %>" style="height: auto;"> -->
-        
+        <!-- <%= params %> -->
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,6 +70,7 @@
             <% end %>
         </div>
       </nav>
+      <% end %>
     </header>
     <main role="main" class="container">
       <% flash.each do |key, value| %>
