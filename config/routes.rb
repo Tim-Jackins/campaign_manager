@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   authenticate :user do
     resources :campaigns do
-      resources :locations
+      resources :locations do
+        resources :buildings
+      end
       resources :main_quests
     end
 
