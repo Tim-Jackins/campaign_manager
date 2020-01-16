@@ -15,6 +15,12 @@ class LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:name, :desc, :image_link)
+    params.require(:location).permit(
+      :name,
+      :short_description,
+      :description,
+      :is_natural,
+      :image_link
+    )
   end
 end
