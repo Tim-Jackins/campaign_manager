@@ -5,8 +5,8 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign = Campaign.find(params[:id])
-    @location = @campaign.locations
 
+    @new_location = Location.new
     @new_building = Building.new
 
     renderer = Redcarpet::Render::HTML
