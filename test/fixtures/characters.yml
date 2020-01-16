@@ -1,69 +1,87 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  api_resource: 1
   name: MyString
-  player_name: MyString
   classes: 1
-  levels: MyString
-  subclasses: 1
-  background: MyText
+  background: 1
+  player_name: MyString
   race: 1
-  languages: 1
   alignment: MyString
   xp: 1
-  hit_points: 1
-  current_hp: 1
-  inspiration: false
   strength: 1
   dexterity: 1
   constitution: 1
   wisdom: 1
+  intelligence: 1
   charisma: 1
-  skill_proficiencies: 1
-  skill_expertise: 1
-  features: 1
-  weapon_proficiencies: 1
-  income: 1
-  equipment: 1
-  spells_known: 1
-  spells_prepared: 1
-  personality_traits: MyText
-  ideals: MyText
-  bonds: MyText
-  flaws: MyText
-  feature_and_traits: MyText
+  strength_save: false
+  dexterity_save: false
+  constitution_save: false
+  wisdom_save: false
+  intelligence_save: false
+  charisma_save: false
+  inspiration: 1
+  proficiency_bonus: 1
+  armor_class: 1
+  initiative: 1
+  speed: 1
+  hp_max: 1
+  current_hp: 1
+  temporary_hp: 1
+  hit_dice: MyString
+  death_saves_success: 1
+  death_saves_failure: 1
+  attack_json: MyText
+  attack_desc: MyText
+  proficiency_language_desc: MyText
+  copper_pieces: 1
+  silver_pieces: 1
+  electrum_pieces: 1
+  gold_pieces: 1
+  platinum_pieces: 1
+  features_traits: 1
+  features_traits_desc: MyText
+  spells: 1
 
 two:
-  api_resource: 1
   name: MyString
-  player_name: MyString
   classes: 1
-  levels: MyString
-  subclasses: 1
-  background: MyText
+  background: 1
+  player_name: MyString
   race: 1
-  languages: 1
   alignment: MyString
   xp: 1
-  hit_points: 1
-  current_hp: 1
-  inspiration: false
   strength: 1
   dexterity: 1
   constitution: 1
   wisdom: 1
+  intelligence: 1
   charisma: 1
-  skill_proficiencies: 1
-  skill_expertise: 1
-  features: 1
-  weapon_proficiencies: 1
-  income: 1
-  equipment: 1
-  spells_known: 1
-  spells_prepared: 1
-  personality_traits: MyText
-  ideals: MyText
-  bonds: MyText
-  flaws: MyText
-  feature_and_traits: MyText
+  strength_save: false
+  dexterity_save: false
+  constitution_save: false
+  wisdom_save: false
+  intelligence_save: false
+  charisma_save: false
+  inspiration: 1
+  proficiency_bonus: 1
+  armor_class: 1
+  initiative: 1
+  speed: 1
+  hp_max: 1
+  current_hp: 1
+  temporary_hp: 1
+  hit_dice: MyString
+  death_saves_success: 1
+  death_saves_failure: 1
+  attack_json: MyText
+  attack_desc: MyText
+  proficiency_language_desc: MyText
+  copper_pieces: 1
+  silver_pieces: 1
+  electrum_pieces: 1
+  gold_pieces: 1
+  platinum_pieces: 1
+  features_traits: 1
+  features_traits_desc: MyText
+  spells: 1
