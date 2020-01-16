@@ -38,3 +38,6 @@ yarn-debug.log*
 
 .DS_Store
 scripty_testing
+
+database_plan.xml
+database_command.sh
