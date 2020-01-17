@@ -289,7 +289,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_021346) do
     t.string "name"
     t.string "short_description"
     t.text "description"
-    t.boolean "is_natural"
+    t.string "image_link"
     t.integer "campaign_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

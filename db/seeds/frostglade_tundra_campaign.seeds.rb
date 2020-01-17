@@ -112,7 +112,6 @@ farcross = Location.create(
   name: 'Farcross',
   short_description: 'A town of 3000 inhabited by Humans, Half-orcs, and Dwarves.',
   description: "Town of Farcross has has about 3000 inhabitants.\n\nFarcross is located on hill and is surrounded by natural cliffs. There are four guarded entrances to town.\n\nAll houses are recently built wooden houses.",
-  is_natural: false,
   campaign: frostglade_tundra
 )
 farcross_buildings = {
@@ -150,21 +149,18 @@ copperhill_mine = Location.create(
   name: 'Copperhill Mine',
   short_description: 'A small mine that yields copper.',
   description: 'Copperhill Mine is small mine that is located in north-east part of Frostglade Tundra. Copperhill mine produces copper. Copperhill mine office is run by Mashen. (Human, male)',
-  is_natural: true,
   campaign: frostglade_tundra
 )
 deeplake_mine = Location.create(
   name: 'Deeplake Mine',
   short_description: 'A recently dug mine that yields silver.',
   description: 'Deeplake Mine is recently established mine that is located in east part of Frostglade Tundra. Deeplake mine produces silver. Deeplake mine office is run by Thobek. (Dwarf, male)',
-  is_natural: true,
   campaign: frostglade_tundra
 )
 southmaw_mine = Location.create(
   name: 'Southmaw Mine',
   short_description: 'A large mine that yields gems.',
   description: 'Southmaw Mine is large mine that is located in south-west part of Frostglade Tundra. Southmaw mine produces gems. Southmaw mine office is run by Oragark. (Orc, male)',
-  is_natural: true,
   campaign: frostglade_tundra
 )
 
