@@ -1,11 +1,11 @@
-<%= javascript_pack_tag 'new_location' %>
+ <%# javascript_pack_tag 'new_main_quest' %>
 
-<div class="modal fade" id="edit_location_modal_for_location_<%= location.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit_main_quest_modal_for_main_quest_<%= main_quest.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_with(model: [ @campaign, @campaign.locations.build ], local: true) do |form| %>
+      <%= form_with(model: [ @campaign, @campaign.main_quests.build ], local: true) do |form| %>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit <%= location.name %></h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit <%= main_quest.name %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
