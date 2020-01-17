@@ -8,10 +8,12 @@ Rails.application.routes.draw do
 
   authenticate :user do
     resources :campaigns do
-      resources :locations do
+      resources :locations, defaults: { format: 'json' } do
         resources :buildings
       end
-      resources :main_quests
+      resources :main_quests do
+        resources :quests
+      end
     end
 
     resources :creatures
