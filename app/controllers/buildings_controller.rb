@@ -8,8 +8,8 @@ class BuildingsController < ApplicationController
   end
 
   def destroy
-    @campaign = Campaign.find(params[:campaign_id])
-    @building = @campaign.buildings.find(params[:id])
+    @location = Location.find(params[:location_id])
+    @building = @location.buildings.find(params[:id])
     @building.destroy
     redirect_to campaign_path(@campaign)
   end
