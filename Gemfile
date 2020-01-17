@@ -29,6 +29,7 @@ gem 'barista'
 gem 'activeadmin'
 gem 'bootstrap', '~> 4.3.1'
 gem 'redcarpet'
+gem 'active_model_serializers'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
