@@ -1,11 +1,9 @@
-<%= javascript_pack_tag 'new_location' %>
-
-<div class="modal fade" id="edit_location_modal_for_location_<%= location.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="new_quest_modal_for_main_quest_<%= main_quest.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_with(model: [ @campaign, @campaign.locations.build ], local: true) do |form| %>
+      <%= form_with(url: "/campaigns/#{@campaign.id}/main_quests/#{main_quest.id}/quests", model: @new_quest, local: true) do |form| %>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit <%= location.name %></h5>
+        <h5 class="modal-title">New Quest</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -19,8 +17,8 @@
         </div>
         <div class="form-group">
           <p>
-            <%= form.label :short_description %><br>
-            <%= form.text_field :short_description %>
+            <%= form.label :level %><br>
+            <%= form.number_field :level %>
           </p>
         </div>
         <div class="form-group">
@@ -31,22 +29,14 @@
         </div>
         <div class="form-group">
           <p>
-            <%= form.label :image_link %><br>
-            <%= form.text_field :image_link %>
-            <button id="load_image" class="btn btn-info" >Confirm</button>
+            <%= form.label 'Reward (250 character max)' %><br>
+            <%= form.text_area :reward, maxlength: 250, class: 'w-75' %>
           </p>
-          <%= form.label 'Preview:' %>
-          <div id="dropbox">
-            <div id="preview">
-              
-            </div>
-          </div>
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= form.submit class: 'btn btn-primary' %>
+        <%= form.submit 'Save Quest', class: 'btn btn-primary' %>
       </div>
       <% end %>
     </div>

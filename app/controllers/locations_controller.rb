@@ -1,4 +1,22 @@
 class LocationsController < ApplicationController
+  # def index
+  #   @locations = Location.all
+  #   # render json: json_format(@locations)
+  #   respond_to do |format|
+  #     format.json
+  #     render partial: 'locations/index.json'
+  #   end
+  # end
+
+  def show
+    @location = Location.find(params[:id])
+
+    render json: @location.to_json(
+      only: %i[id name short_description description image_link],
+      include: [campaign: { only: %i[id name] }]
+    )
+  end
+
   def create
     @campaign = Campaign.find(params[:campaign_id])
     @location = @campaign.locations.create(location_params)
@@ -19,7 +37,6 @@ class LocationsController < ApplicationController
       :name,
       :short_description,
       :description,
-      :is_natural,
       :image_link
     )
   end

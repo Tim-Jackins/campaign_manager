@@ -1,11 +1,11 @@
 <%= javascript_pack_tag 'new_location' %>
 
-<div class="modal fade" id="new_location_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="new_location_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <%= form_with(model: [ @campaign, @campaign.locations.build ], local: true) do |form| %>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New Location</h5>
+        <h5 class="modal-title">New Location</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -29,8 +29,6 @@
             <%= form.text_area :description, class: 'w-75' %>
           </p>
         </div>
-        <%= form.check_box :is_natural %>
-        <%= form.label 'Is this a natural or person built location?' %>
         <div class="form-group">
           <p>
             <%= form.label :image_link %><br>

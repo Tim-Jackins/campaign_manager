@@ -1,13 +1,17 @@
 <%= render 'locations/new_form_modal' %>
+<%= render 'buildings/new_form_modal' %>
 
 <%= render 'main_quests/new_form_modal' %>
 <%= render 'campaigns/settings_modal' %>
 
-<% console %>
+<%= render 'shared/loading_modal' %>
+
+<%# <% console %>
 
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading"><%= @campaign.name %></h1>
+    <%= hidden_field_tag 'campaign_id', @campaign.id %>
     <%# <p class="lead text-muted"> %>
     <!-- <%= @markdown.render(@campaign.general_information).html_safe %> -->
     <%# </p> %>
@@ -44,3 +48,5 @@
     <a href="#">Minimize</a>
   </small>
 </div>
+
+<%= javascript_pack_tag 'campaign_modal_handlers' %>

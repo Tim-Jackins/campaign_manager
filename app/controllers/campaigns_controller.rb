@@ -9,6 +9,9 @@ class CampaignsController < ApplicationController
     @new_location = Location.new
     @new_building = Building.new
 
+    @new_main_quest = MainQuest.new
+    @new_quest = Quest.new
+
     renderer = Redcarpet::Render::HTML
     @markdown = Redcarpet::Markdown.new renderer
   end
