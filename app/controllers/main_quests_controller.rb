@@ -1,8 +1,27 @@
 class MainQuestsController < ApplicationController
+  def show
+    @main_quest = MainQuest.find(params[:id])
+
+    render json: @main_quest.to_json(
+      only: %i[id name short_description description],
+      include: [campaign: { only: %i[id name] }]
+    )
+  end
+
   def create
     @campaign = Campaign.find(params[:campaign_id])
     @main_quest = @campaign.main_quests.create(main_quest_params)
     redirect_to campaign_path(@campaign)
+  end
+
+  def update
+    @main_quest = MainQuest.find(params[:id])
+    @campaign = @main_quest.campaign
+
+    update_successful = @main_quest.update(main_quest_params)
+    flash.alert = 'Main Quest edit failed.' unless update_successful
+
+    redirect_to @campaign
   end
 
   def destroy
@@ -22,3 +41,4 @@ class MainQuestsController < ApplicationController
     )
   end
 end
+

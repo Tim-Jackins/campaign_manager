@@ -1,7 +1,6 @@
 <% if main_quest.id %>
 
 <%= render partial: 'quests/new_form_modal', locals: { main_quest: main_quest } %>
-<%= render partial: 'main_quests/edit_form_modal', locals: { main_quest: main_quest } %>
 
 <div class="media text-muted pt-3" id=<%= main_quest.id %>>
   <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"></rect><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
@@ -23,7 +22,9 @@
           </button>
         </div>
         <div class="col-sm" style="text-align: center;">
-          <a role="button" href="#" class="btn btn-secondary">Secondary</a>
+          <button type="button" class="btn btn-secondary" id="edit_main_quest_id_<%= main_quest.id %>">
+            Edit Main Quest
+          </button>
         </div>
         <div class="col-sm" style="text-align: center;">
           <%= link_to "Delete",

@@ -1,11 +1,10 @@
- <%# javascript_pack_tag 'new_main_quest' %>
-
-<div class="modal fade" id="edit_main_quest_modal_for_main_quest_<%= main_quest.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit_main_quest_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_with(model: [ @campaign, @campaign.main_quests.build ], local: true) do |form| %>
+      <%= form_with(model: [ @campaign, @campaign.main_quests.build ], local: true, method: :post) do |form| %>
+      <input type="hidden" name="_method" value="patch">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit <%= main_quest.name %></h5>
+        <h5 class="modal-title" id="edit_main_quest_modal_title"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -20,7 +19,7 @@
         <div class="form-group">
           <p>
             <%= form.label :short_description %><br>
-            <%= form.text_field :short_description %>
+            <%= form.text_field :short_description, class: 'w-75' %>
           </p>
         </div>
         <div class="form-group">
@@ -29,26 +28,14 @@
             <%= form.text_area :description, class: 'w-75' %>
           </p>
         </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :image_link %><br>
-            <%= form.text_field :image_link %>
-            <button id="load_image" class="btn btn-info" >Confirm</button>
-          </p>
-          <%= form.label 'Preview:' %>
-          <div id="dropbox">
-            <div id="preview">
-              
-            </div>
-          </div>
-        </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= form.submit class: 'btn btn-primary' %>
+        <%= form.submit 'Edit Main Quest', class: 'btn btn-primary' %>
       </div>
       <% end %>
     </div>
   </div>
 </div>
+
+<%# javascript_pack_tag 'new_main_quest' %>

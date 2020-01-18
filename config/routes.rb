@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :locations, defaults: { format: 'json' } do
         resources :buildings
       end
-      resources :main_quests do
+      resources :main_quests, defaults: { format: 'json' } do
         resources :quests
       end
     end
