@@ -3,6 +3,21 @@ prevent_defaults = (e) ->
   e.stopPropagation()
 
 $ ->
+  # Handle new buildings
+  $('button[id^="new_building_location_id_"]').click (e) ->
+    prevent_defaults(e)
+    # $('#new_building_modal_for_location_1').modal('show');
+    campaign_id = $('#campaign_id').val()
+    index_of_id = 'new_building_location_id_'.length
+    full_id = this.id
+    location_id = full_id.slice(index_of_id)
+    action = "/campaigns/#{campaign_id}/locations/#{location_id}/buildings"
+
+    modal = $('#new_building_modal')
+    modal_form = $('#new_building_modal_form')
+    modal_form.attr('action', action)
+    modal.modal('show')
+
   # Handle edit locations
   $('button[id^="edit_location_id_"]').click (e) ->
     prevent_defaults(e)
@@ -22,7 +37,6 @@ $ ->
       success: (data, textStatus, jqXHR) ->
         location_json = data
         # Update modal appropriately
-        console.log location_json
         edit_modal = $('#edit_location_modal')
 
         edit_modal_form = edit_modal.find('form')
@@ -41,6 +55,21 @@ $ ->
         # unless data['name']
         #   alert('Received nothing from API...')
         #   return false
+
+  # Handle new quests
+  $('button[id^="new_quest_main_quest_id_"]').click (e) ->
+    prevent_defaults(e)
+    # $('#new_building_modal_for_location_1').modal('show');
+    campaign_id = $('#campaign_id').val()
+    index_of_id = 'new_quest_main_quest_id_'.length
+    full_id = this.id
+    main_quest_id = full_id.slice(index_of_id)
+    action = "/campaigns/#{campaign_id}/main_quests/#{main_quest_id}/quests"
+
+    modal = $('#new_quest_modal')
+    modal_form = $('#new_quest_modal_form')
+    modal_form.attr('action', action)
+    modal.modal('show')
 
   # Handle edit main_quests
   $('button[id^="edit_main_quest_id_"]').click (e) ->
@@ -61,7 +90,6 @@ $ ->
       success: (data, textStatus, jqXHR) ->
         main_quest_json = data
         # Update modal appropriately
-        console.log main_quest_json
         edit_modal = $('#edit_main_quest_modal')
 
         edit_modal_form = edit_modal.find('form')
@@ -79,19 +107,3 @@ $ ->
         # unless data['name']
         #   alert('Received nothing from API...')
         #   return false
-
-
-  # Handle new buildings
-  $('button[id^="new_building_location_id_"]').click (e) ->
-    prevent_defaults(e)
-    # $('#new_building_modal_for_location_1').modal('show');
-    campaign_id = $('#campaign_id').val()
-    index_of_id = 'new_building_location_id_'.length
-    full_id = this.id
-    location_id = full_id.slice(index_of_id)
-    action = "/campaigns/#{campaign_id}/locations/#{location_id}/buildings"
-
-    modal = $('#new_building_modal')
-    modal_form = $('#new_building_modal_form')
-    modal_form.attr('action', action)
-    modal.modal('show')
