@@ -18,24 +18,68 @@ $ ->
       type: 'GET'
       dataType: 'json'
       error: (jqXHR, textStatus, errorThrown) ->
-        alert('Call failed (check api link)')
+        alert('Please reload the page.')
       success: (data, textStatus, jqXHR) ->
         location_json = data
         # Update modal appropriately
-        location_name
-        location_short_description
-        location_description
-        location_image_link
-        
         console.log location_json
+        edit_modal = $('#edit_location_modal')
+
+        edit_modal_form = edit_modal.find('form')
+        edit_modal_form.attr('action', location_url)
+        edit_modal_form.attr('method', 'post')
+        
+        edit_modal.find('#edit_location_modal_title').html("Edit #{location_json['name']}")
+        edit_modal.find('#location_name').val(location_json['name'])
+        edit_modal.find('#location_short_description').val(location_json['short_description'])
+        edit_modal.find('#location_description').val(location_json['description'])
+        edit_modal.find('#location_image_link').val(location_json['image_link'])
+        # Show modal
+        edit_modal.modal('show')
+
     }
         # unless data['name']
         #   alert('Received nothing from API...')
         #   return false
 
+  # Handle edit main_quests
+  $('button[id^="edit_main_quest_id_"]').click (e) ->
+    prevent_defaults(e)
     
+    # Get main_quest data
+    campaign_id = $('#campaign_id').val()
+    index_of_id = 'edit_main_quest_id_'.length
+    full_id = this.id
+    main_quest_id = full_id.slice(index_of_id)
+    main_quest_url = "/campaigns/#{campaign_id}/main_quests/#{main_quest_id}"
 
-    # show modal
+    $.ajax main_quest_url, {
+      type: 'GET'
+      dataType: 'json'
+      error: (jqXHR, textStatus, errorThrown) ->
+        alert('Please reload the page.')
+      success: (data, textStatus, jqXHR) ->
+        main_quest_json = data
+        # Update modal appropriately
+        console.log main_quest_json
+        edit_modal = $('#edit_main_quest_modal')
+
+        edit_modal_form = edit_modal.find('form')
+        edit_modal_form.attr('action', main_quest_url)
+        edit_modal_form.attr('method', 'post')
+        
+        edit_modal.find('#edit_main_quest_modal_title').html("Edit #{main_quest_json['name']}")
+        edit_modal.find('#main_quest_name').val(main_quest_json['name'])
+        edit_modal.find('#main_quest_short_description').val(main_quest_json['short_description'])
+        edit_modal.find('#main_quest_description').val(main_quest_json['description'])
+        edit_modal.find('#main_quest_image_link').val(main_quest_json['image_link'])
+        # Show modal
+        edit_modal.modal('show')
+    }
+        # unless data['name']
+        #   alert('Received nothing from API...')
+        #   return false
+
 
   # Handle new buildings
   $('button[id^="new_building_location_id_"]').click (e) ->

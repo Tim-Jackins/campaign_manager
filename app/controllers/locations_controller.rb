@@ -23,6 +23,16 @@ class LocationsController < ApplicationController
     redirect_to campaign_path(@campaign)
   end
 
+  def update
+    @location = Location.find(params[:id])
+    @campaign = @location.campaign
+
+    update_successful = @location.update(location_params)
+    flash.alert = 'Location edit failed.' unless update_successful
+
+    redirect_to @campaign
+  end
+
   def destroy
     @campaign = Campaign.find(params[:campaign_id])
     @location = @campaign.locations.find(params[:id])
