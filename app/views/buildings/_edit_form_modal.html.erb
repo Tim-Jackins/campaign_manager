@@ -1,9 +1,10 @@
-<div class="modal fade" id="new_building_modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit_building_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <%= form_with(url: '', model: @new_building, id: 'new_building_modal_form', local: true) do |form| %>
+      <%= form_with(url: '', model: @new_building, id: 'edit_building_modal_form', local: true) do |form| %>
+      <input type="hidden" name="_method" value="patch">
       <div class="modal-header">
-        <h5 class="modal-title">New Building</h5>
+        <h5 class="modal-title">Edit Building</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -25,7 +26,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= form.submit 'New Building', class: 'btn btn-primary' %>
+        <%= form.submit 'Save Building', class: 'btn btn-primary' %>
       </div>
       <% end %>
     </div>

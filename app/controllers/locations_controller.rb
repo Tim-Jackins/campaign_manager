@@ -13,7 +13,11 @@ class LocationsController < ApplicationController
 
     render json: @location.to_json(
       only: %i[id name short_description description image_link],
-      include: [campaign: { only: %i[id name] }]
+      include: [
+        campaign: { only: %i[id name] },
+        buildings: { only: %i[id name description] }
+        # encounters: { only: %i[id name description] }
+      ]
     )
   end
 

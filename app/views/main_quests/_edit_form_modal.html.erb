@@ -10,24 +10,43 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <p>
-            <%= form.label :name %><br>
-            <%= form.text_field :name %>
-          </p>
+        <p>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#main_quest_attributes" aria-expanded="false">
+            Toggle attributes
+          </button>
+        </p>
+
+        <div class="collapse" id="main_quest_attributes">
+          <div class="card card-body">
+            <div class="form-group">
+              <p>
+                <%= form.label :name %><br>
+                <%= form.text_field :name %>
+              </p>
+            </div>
+            <div class="form-group">
+              <p>
+                <%= form.label :short_description %><br>
+                <%= form.text_field :short_description, class: 'w-75' %>
+              </p>
+            </div>
+            <div class="form-group">
+              <p>
+                <%= form.label :description %><br>
+                <%= form.text_area :description, class: 'w-75' %>
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :short_description %><br>
-            <%= form.text_field :short_description, class: 'w-75' %>
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :description %><br>
-            <%= form.text_area :description, class: 'w-75' %>
-          </p>
-        </div>
+
+        <p>
+          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#manage_quests" aria-expanded="false">
+            Toggle quests
+          </button>
+        </p>
+
+        <div class="collapse" id="manage_quests"></div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -37,5 +56,3 @@
     </div>
   </div>
 </div>
-
-<%# javascript_pack_tag 'new_main_quest' %>

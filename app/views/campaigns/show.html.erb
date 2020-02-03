@@ -1,22 +1,27 @@
 <%= render 'locations/new_form_modal' %>
-<%= render 'buildings/new_form_modal' %>
-
 <%= render 'locations/edit_form_modal' %>
-<%= render 'main_quests/edit_form_modal' %>
+
+<%= render 'buildings/new_form_modal' %>
+<%= render 'buildings/edit_form_modal' %>
 
 <%= render 'main_quests/new_form_modal' %>
+<%= render 'main_quests/edit_form_modal' %>
+
 <%= render 'quests/new_form_modal' %>
+<%= render 'quests/edit_form_modal' %>
 
 <%= render 'campaigns/settings_modal' %>
 
 <%= render 'shared/loading_modal' %>
 
-<%# <% console %>
+<%# console %>
 
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading"><%= @campaign.name %></h1>
     <%= hidden_field_tag 'campaign_id', @campaign.id %>
+    <%= hidden_field_tag 'active_location_id', 0 %>
+    <%= hidden_field_tag 'active_main_quest_id', 0 %>
     <%# <p class="lead text-muted"> %>
     <!-- <%= @markdown.render(@campaign.general_information).html_safe %> -->
     <%# </p> %>
@@ -53,5 +58,8 @@
     <a href="#">Minimize</a>
   </small>
 </div>
+
+<%= javascript_pack_tag 'new_main_quest' %>
+<%= javascript_pack_tag 'new_location' %>
 
 <%= javascript_pack_tag 'campaign_modal_handlers' %>
