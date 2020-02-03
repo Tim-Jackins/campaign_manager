@@ -177,11 +177,12 @@ vaasa_traders = MainQuest.create(
 #   description: "Characters meet Meishir (Human, male, businessmen) first time at Vaasa Traders office.\n\nMeishir offers job for characters.\n\nVaasa Trader's potato cellar is infested by rats. There are some old potions in cellar and characters are allowed to take those.",
 #   main_quest_id: vaasa_traders.id
 # )
-potato_cellar = vaasa_traders.quests.create(
+potato_cellar = Quest.create(
   name: 'Potato cellar',
   level: 1,
   description: "Characters meet Meishir (Human, male, businessmen) first time at Vaasa Traders office.\n\nMeishir offers job for characters.\n\nVaasa Trader's potato cellar is infested by rats. There are some old potions in cellar and characters are allowed to take those.",
   reward: '10 gp and 200 xp',
+  main_quest: vaasa_traders,
   questable: Building.find_by(name: 'Vaasa Traders')
 )
 potato_cellar_rooms = [

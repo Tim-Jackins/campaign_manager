@@ -10,39 +10,60 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <p>
-            <%= form.label :name %><br>
-            <%= form.text_field :name %>
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :short_description %><br>
-            <%= form.text_field :short_description, class: 'w-75' %>
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :description %><br>
-            <%= form.text_area :description, class: 'w-75' %>
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            <%= form.label :image_link %><br>
-            <%= form.text_field :image_link %>
-            <button id="load_image" class="btn btn-info" >Confirm</button>
-          </p>
-          <%= form.label 'Preview:' %>
-          <div id="dropbox">
-            <div id="preview">
-              
+        <p>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#location_attributes" aria-expanded="false">
+            Toggle attributes
+          </button>
+        </p>
+
+        <div class="collapse" id="location_attributes">
+          <div class="card card-body">
+            <div class="form-group">
+              <p>
+                <%= form.label :name %><br>
+                <%= form.text_field :name %>
+              </p>
+            </div>
+            <div class="form-group">
+              <p>
+                <%= form.label :short_description %><br>
+                <%= form.text_field :short_description, class: 'w-75' %>
+              </p>
+            </div>
+            <div class="form-group">
+              <p>
+                <%= form.label :description %><br>
+                <%= form.text_area :description, class: 'w-75' %>
+              </p>
+            </div>
+            <div class="form-group">
+              <p>
+                <%= form.label :image_link %><br>
+                <%= form.text_field :image_link %>
+                <button id="load_image" class="btn btn-info" >Confirm</button>
+              </p>
+              <%= form.label 'Preview:' %>
+              <div id="dropbox">
+                <div id="preview">
+                  
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        <p>
+          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#manage_buildings" aria-expanded="false">
+            Toggle buildings
+          </button>
+        </p>
+
+        <div class="collapse" id="manage_buildings"></div>
+
+        <%# <a class="btn btn-danger" role="button" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/campaigns/1/locations/1">Delete</a> %>
+
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%= form.submit 'Edit Location', class: 'btn btn-primary' %>

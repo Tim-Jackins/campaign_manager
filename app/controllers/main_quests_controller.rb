@@ -4,7 +4,10 @@ class MainQuestsController < ApplicationController
 
     render json: @main_quest.to_json(
       only: %i[id name short_description description],
-      include: [campaign: { only: %i[id name] }]
+      include: [
+        campaign: { only: %i[id name] },
+        quests: { only: %i[id name description] }
+      ]
     )
   end
 
