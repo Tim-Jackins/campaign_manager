@@ -26,13 +26,3 @@ rails server
 ## Debug
 
 `rdebug-ide --host 127.0.0.1 --port 1234 --dispatcher-port 26162 bin/rails server`
-
-## Handy Commands
-
-`tail -f /usr/local/var/mysql/*.err &`
-
-`jobs`
-
-`kill %1`
-
-`htmlbeautifier app/views/layouts/application.html.erb`
