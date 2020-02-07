@@ -75,5 +75,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Default API for checking
-  config.dnd_base_url = 'http://www.dnd5eapi.co/api/'
+  config.dnd_base_url = 'https://api.open5e.com/'
 end

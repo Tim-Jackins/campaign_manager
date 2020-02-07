@@ -153,6 +153,17 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <p>
+            <%= form.label :senses %><br>
+            <%= form.text_field :senses, class: 'w-100' %>
+          </p>
+        </div>
+      </div>
+    </div>
+
     <h3>Ability Scores</h3>
     <table class="table">
       <thead>
@@ -194,28 +205,6 @@
           <td><%= form.select(:damage_resistances, @damage_types.each, {}, { multiple: true, size: @damage_types.length }) %></td>
           <td><%= form.select(:damage_immunities, @damage_types.each, {}, { multiple: true, size: @damage_types.length }) %></td>
           <td><%= form.select(:condition_immunities, @conditions.each, {}, { multiple: true, size: @conditions.length }) %></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Senses</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <td scope="col"><em data-toggle="tooltip" data-original-title="Radius that can be seen while blind.">Blindsight</em></td>
-          <td scope="col"><em data-toggle="tooltip" data-original-title="Radius that can be seen in the dark.">Darkvision</em></td>
-          <td scope="col"><em data-toggle="tooltip" data-original-title="Radius that a creature can detect a thing through the ground.">Tremorsense</em></td>
-          <td scope="col"><em data-toggle="tooltip" data-original-title="Radius to see in normal and magical darkness, invisible creatures and objects, automatically detect visual illusions and succeed on saving throws against them, and perceives the original form of a shapechanger or a creature that is transformed by magic.">Truesight</em></td>
-          <td scope="col"><em data-toggle="tooltip" data-original-title="Radius to send and receive telepathic messages.">Telepathy</em></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= form.number_field :blindsight, class: 'sense-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
-          <td><%= form.number_field :darkvision, class: 'sense-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
-          <td><%= form.number_field :tremorsense, class: 'sense-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
-          <td><%= form.number_field :truesight, class: 'sense-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
-          <td><%= form.number_field :telepathy, class: 'sense-pick', onKeyPress: "if(this.value.length==4) return false;" %></td>
         </tr>
       </tbody>
     </table>
@@ -278,7 +267,7 @@
       </div>
     </div>
 
-    <h3>Abilities, Actions, and Reactions</h3>
+    <h3>Special Abilities, Actions, Reactions, and Legendary Actions</h3>
     <hr>
     <div class="form-group">
       <p>

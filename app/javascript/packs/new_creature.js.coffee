@@ -255,19 +255,24 @@ $ ->
         api_json = data
         form_id_prefix = 'creature_'
         
-        unless data['name']
+        unless api_json['name']
           alert('Received nothing from API...')
           return false
+
+        alert('Received ' + api_json['name'] + ' from API!')
         
-        alert('Received ' + data['name'] + ' from API!')
-        
+        $('#special_abilitie_holder_list').empty()
+        $('#action_holder_list').empty()
+        $('#reaction_holder_list').empty()
+        $('#legendary_action_holder_list').empty()
+
         $('#' + form_id_prefix + 'name').val(api_json['name']) if api_json['name']
         $('#' + form_id_prefix + 'size').val(api_json['size']) if api_json['size']
         $('#' + form_id_prefix + 'tag').val(api_json['tag']) if api_json['tag']
         $('#' + form_id_prefix + 'body_type').val(api_json['type']) if api_json['type']
         $('#' + form_id_prefix + 'sub_body_type').val(api_json['subtype']) if api_json['subtype']
         $('#' + form_id_prefix + 'armor_class').val(api_json['armor_class']) if api_json['armor_class']
-        $('#' + form_id_prefix + 'armor_name').val(api_json['armor_name']) if api_json['armor_name']
+        $('#' + form_id_prefix + 'armor_name').val(api_json['armor_desc']) if api_json['armor_desc']
         $('#' + form_id_prefix + 'hit_points').val(api_json['hit_points']) if api_json['hit_points']
         $('#' + form_id_prefix + 'hit_dice').val(api_json['hit_dice']) if api_json['hit_dice']
         
@@ -279,37 +284,15 @@ $ ->
             if alignment_api.includes(alignment_lower)
               $(this).prop('selected', true)
               
-        speeds_sentence = api_json['speed']
+        speeds = api_json['speed']
 
-        speeds_api = [
-          '',
-          'burrow',
-          'climb',
-          'fly',
-          'swim'
-        ]
+        $('#' + form_id_prefix + 'speed').val(speeds['walk']) if speeds['walk']
+        $('#' + form_id_prefix + 'burrow_speed').val(speeds['burrow']) if speeds['burrow']
+        $('#' + form_id_prefix + 'climb_speed').val(speeds['climb']) if speeds['climb']
+        $('#' + form_id_prefix + 'fly_speed').val(speeds['fly']) if speeds['fly']
+        $('#' + form_id_prefix + 'swim_speed').val(speeds['swim']) if speeds['swim']
 
-        speeds_id = [
-          'speed',
-          'burrow_speed',
-          'climb_speed',
-          'fly_speed',
-          'swim_speed'
-        ]
-
-        for [speed_api, speed_id] in zip(speeds_api, speeds_id)
-          search_string = if (speed_api.length > 0) then speed_api + ' ' else speed_api
-          
-          index = speeds_sentence.indexOf(search_string)
-          if index >= 0
-            value_slice = speeds_sentence.slice(index + search_string.length)
-            speed_value = value_slice.slice(0, value_slice.search(' ft'))
-            if contains_char(speed_value)
-              $('#' + form_id_prefix + speed_id).val('0')
-            else
-              $('#' + form_id_prefix + speed_id).val(speed_value)
-          else
-            $('#' + form_id_prefix + speed_id).val('0')
+        $('#' + form_id_prefix + 'senses').val(api_json['senses']) if api_json['senses']
 
         if api_json['strength']? then $('#' + form_id_prefix + 'strength').val(api_json['strength']) else $('#' + form_id_prefix + 'strength').val('0')
         if api_json['dexterity']? then $('#' + form_id_prefix + 'dexterity').val(api_json['dexterity']) else $('#' + form_id_prefix + 'dexterity').val('0')
@@ -363,29 +346,6 @@ $ ->
             if condition_immunities_api.includes(condition_immunitie) || condition_immunities_api.includes(condition_immunitie_lower)
               $(this).prop('selected', true)
 
-        senses_sentence = api_json['senses']
-        senses = [
-          'blindsight',
-          'darkvision',
-          'tremorsense',
-          'truesight',
-          'telepathy'
-        ]
-
-        for sense in senses
-          id = sense
-          search_string = id + ' '
-          index = senses_sentence.indexOf(search_string)
-          if index >= 0
-            value_slice = senses_sentence.slice(index + search_string.length)
-            sense_value = value_slice.slice(0, value_slice.search(' ft'))
-            $('#' + form_id_prefix + id).val(sense_value)
-          else
-            $('#' + form_id_prefix + id).val('0')
-        
-        # $('#' + form_id_prefix + 'challenge_rating option[value=' + api_json['challenge_rating'].toString() + ']').children().each ->
-        #   $(this).prop('selected', false)
-        
         if (parseFloat(api_json['challenge_rating']) % 1 == 0)
           $('#' + form_id_prefix + 'challenge_rating option[value=' + api_json['challenge_rating'].toString() + ']').prop('selected', true)
         else
@@ -413,16 +373,19 @@ $ ->
           $('#' + form_id_prefix + 'languages option').each ->
             $(this).prop('selected', false)
         
-        skills = []
-        $('#' + form_id_prefix + 'skills').children().each ->
-          skills.push($(this).val())
-          $(this).prop('selected', false)
-        skills = skills.slice(1)
-        for skill in skills
-          api_skill = skill[0].toLowerCase() + skill.slice(1)
-          skill_value = api_json[api_skill]
-          if skill_value
-            $('#' + form_id_prefix + 'skills option[value=' + skill + ']').prop('selected', true)
+        if $.isEmptyObject(api_json['skills'])
+          $('#creature_skills option[value=""]').prop('selected', true)
+        else
+          skills = []
+          $('#' + form_id_prefix + 'skills').children().each ->
+            skills.push($(this).val())
+            $(this).prop('selected', false)
+          skills = skills.slice(1)
+          for skill in skills
+            api_skill = skill[0].toLowerCase() + skill.slice(1)
+            skill_value = api_json['skills'][api_skill]
+            if skill_value
+              $('#' + form_id_prefix + 'skills option[value=' + skill + ']').prop('selected', true)
         
         if api_json['actions']
           $('#' + form_id_prefix + 'actions_json').val(JSON.stringify(api_json['actions']))
@@ -451,6 +414,4 @@ $ ->
             make_holder('legendary_action', legendary_actions)
         else
           $('#' + form_id_prefix + 'legendary_actions_json').val('')
-
-        # spells_json
     }
