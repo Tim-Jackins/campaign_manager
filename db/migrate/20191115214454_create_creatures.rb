@@ -38,18 +38,12 @@ class CreateCreatures < ActiveRecord::Migration[6.0]
       t.string :damage_immunities
       t.string :condition_immunities
 
-      t.integer :blindsight
-      t.integer :darkvision
-      t.integer :tremorsense
-      t.integer :truesight
-      t.integer :telepathy
-
+      t.string :senses
       t.integer :challenge_rating
-
       t.string :skills
       t.string :languages
 
-      t.text :spells_json
+      t.text :spells_json # Figure out how to fix this
       t.text :actions_json
       t.text :special_abilities_json
       t.text :reactions_json

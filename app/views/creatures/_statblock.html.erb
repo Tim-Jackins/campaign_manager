@@ -21,38 +21,8 @@ h4 {
 
     <property-line>
       <h4>Speed</h4>
-      <p><%= "#{@creature.speed}ft" %></p>
-    </property-line>
-    
-    <% if @creature.burrow_speed.positive? %>
-      <property-line>
-      <h4>Burrow Speed</h4>
-      <p><%= " #{@creature.burrow_speed}ft" %></p>
-      </property-line>
-    <% end %>
-
-    <% if @creature.climb_speed.positive? %>
-      <property-line>
-      <h4>Climb Speed</h4>
-      <p><%= " #{@creature.climb_speed}ft" %></p>
-      </property-line>
-    <% end %>
-
-    <% if @creature.fly_speed.positive? %>
-      <property-line>
-      <h4>Fly Speed</h4>
-      <p><%= " #{@creature.fly_speed}ft" %></p>
-      </property-line>
-    <% end %>
-
-    <% if @creature.swim_speed.positive? %>
-      <property-line>
-      <h4>Swim Speed</h4>
-      <p><%= " #{@creature.swim_speed}ft" %></p>
-      </property-line>
-    <% end %>
-
-    
+      <p><%= "#{@creature.speed}" %></p>
+    </property-line>    
     
     <abilities-block
       data-cha=<%= @creature.charisma %>
