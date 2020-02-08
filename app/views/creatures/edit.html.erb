@@ -9,7 +9,7 @@ window.languages = '<%= @creature.languages %>'
 window.skills = '<%= @creature.skills %>'
 </script>
 
-<%= javascript_pack_tag 'new_creature' %>
+<%= javascript_pack_tag 'new_creature', 'data-turbolinks-track': 'reload' %>
 
 <%= render 'new_form' %>
 

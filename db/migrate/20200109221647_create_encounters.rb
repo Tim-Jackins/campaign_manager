@@ -7,6 +7,8 @@ class CreateEncounters < ActiveRecord::Migration[6.0]
       t.string :reward
       t.text :description
 
+      t.boolean :completed
+
       # t.references :location, foreign_key: true
       # t.references :building, foreign_key: true
 

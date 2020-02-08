@@ -7,6 +7,8 @@ class CreateQuests < ActiveRecord::Migration[6.0]
       t.text :description
       t.string :reward
 
+      t.boolean :completed
+
       t.references :main_quest, foreign_key: true
 
       # t.references :location, foreign_key: true
