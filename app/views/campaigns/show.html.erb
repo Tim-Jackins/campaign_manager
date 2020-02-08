@@ -14,11 +14,11 @@
 
 <%= render 'shared/loading_modal' %>
 
-<%# console %>
+<% console %>
 
 <section class="jumbotron text-center">
   <div class="container">
-    <h1 class="jumbotron-heading"><%= @campaign.name %></h1>
+    <h1 class="jumbotron-heading pb-3"><%= @campaign.name %></h1>
     <%= hidden_field_tag 'campaign_id', @campaign.id %>
     <%= hidden_field_tag 'active_location_id', 0 %>
     <%= hidden_field_tag 'active_main_quest_id', 0 %>
@@ -42,24 +42,28 @@
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <h6 class="border-bottom border-gray pb-2 mb-0">Locations</h6>
 
-  <%= render @campaign.locations %>
+  <div class="collapse show" id="locations_holder">
+    <%= render @campaign.locations %>
+  </div>
 
   <small class="d-block text-right mt-3">
-    <a href="#">Minimize</a>
+    <a data-toggle="collapse" href="#locations_holder">Toggle</a>
   </small>
 </div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <h6 class="border-bottom border-gray pb-2 mb-0">Main Quests</h6>
 
-  <%= render @campaign.main_quests %>
+  <div class="collapse show" id="main_quest_holder">
+    <%= render @campaign.main_quests %>
+  </div>
 
   <small class="d-block text-right mt-3">
-    <a href="#">Minimize</a>
+    <a data-toggle="collapse" href="#main_quest_holder">Toggle</a>
   </small>
 </div>
 
-<%= javascript_pack_tag 'new_main_quest' %>
-<%= javascript_pack_tag 'new_location' %>
+<%= javascript_pack_tag 'new_main_quest', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'new_location', 'data-turbolinks-track': 'reload' %>
 
-<%= javascript_pack_tag 'campaign_modal_handlers' %>
+<%= javascript_pack_tag 'campaign_modal_handlers', 'data-turbolinks-track': 'reload' %>

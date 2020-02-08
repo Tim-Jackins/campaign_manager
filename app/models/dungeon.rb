@@ -12,6 +12,8 @@ class Dungeon < ApplicationRecord
   #   items
   #     name
   #     count
+  #   completed
+  #   notes
 
   # Room example:
   # {
@@ -29,6 +31,7 @@ class Dungeon < ApplicationRecord
   #       'count' => 
   #     }
   #   ],
+  #   'completed' => false
   #   'notes' => ''
   # }
 
