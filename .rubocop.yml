@@ -1,2 +1,2 @@
-Metrics/LineLength:
-  Max: 1250
+Layout/LineLength:
+  Enabled: false
