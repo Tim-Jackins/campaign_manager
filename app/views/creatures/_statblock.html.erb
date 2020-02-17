@@ -44,12 +44,12 @@ h4 {
     <property-line>
     <h4>Saving Throws</h4>
     <p>
-    <% if @creature.strength_save > 0 %> <%= "Str +#{@creature.strength_save}" %> <% end %>
-    <% if @creature.dexterity_save > 0 %> <%= "Dex +#{@creature.dexterity_save}" %> <% end %>
-    <% if @creature.constitution_save > 0 %> <%= "Con +#{@creature.constitution_save}" %> <% end %>
-    <% if @creature.intelligence_save > 0 %> <%= "Int +#{@creature.intelligence_save}" %> <% end %>
-    <% if @creature.wisdom_save > 0 %> <%= "Wis +#{@creature.wisdom_save}" %> <% end %>
-    <% if @creature.charisma_save > 0 %> <%= "Cha +#{@creature.charisma_save}" %> <% end %>
+    <% if @creature.strength_save > 0 %> <%= "Str (+#{@creature.strength_save})" %> <% end %>
+    <% if @creature.dexterity_save > 0 %> <%= "Dex (+#{@creature.dexterity_save})" %> <% end %>
+    <% if @creature.constitution_save > 0 %> <%= "Con (+#{@creature.constitution_save})" %> <% end %>
+    <% if @creature.intelligence_save > 0 %> <%= "Int (+#{@creature.intelligence_save})" %> <% end %>
+    <% if @creature.wisdom_save > 0 %> <%= "Wis (+#{@creature.wisdom_save})" %> <% end %>
+    <% if @creature.charisma_save > 0 %> <%= "Cha (+#{@creature.charisma_save})" %> <% end %>
     </p>
     </property-line>
     <% end %>
@@ -59,7 +59,7 @@ h4 {
     <h4>Skills</h4>
     <p>
     <% @creature.skills.split(', ').each do |skill| %>
-      <%= "#{skill} +#{@creature.get_modifier(@skill_to_ability_score[skill]) + @creature.get_proficiency_bonus}" %>
+      <%= "#{skill} (+#{@creature.get_modifier(@skill_to_ability_score[skill]) + @creature.get_proficiency_bonus})" %>
     <% end %>
     </p>
     </property-line>
@@ -93,17 +93,12 @@ h4 {
     </property-line>
     <% end %>
 
-    <property-line>
-    <h4>Saving Throws</h4>
-    <p>
-    <% if @creature.blindsight > 0 %> <%= "Blindsight #{@creature.blindsight} Ft. " %> <% end %>
-    <% if @creature.darkvision > 0 %> <%= "Darkvision #{@creature.darkvision} Ft. " %> <% end %>
-    <% if @creature.tremorsense > 0 %> <%= "Tremorsense #{@creature.tremorsense} Ft. " %> <% end %>
-    <% if @creature.truesight > 0 %> <%= "Truesight #{@creature.truesight} Ft. " %> <% end %>
-    <% if @creature.telepathy > 0 %> <%= "Telepathy #{@creature.telepathy} Ft. " %> <% end %>
-    <%= "Passive Perception #{@creature.get_passive_perception()}" %>
-    </p>
-    </property-line>
+    <% if @creature.senses %>
+      <property-line>
+      <h4>Senses</h4>
+      <p><%= @creature.senses %></p>
+      </property-line>
+    <% end %>
     
     <property-line>
       <h4>Languages</h4>
@@ -119,40 +114,40 @@ h4 {
   
   
   <% @creature.special_abilities_hash.each do |special_abilitie| %>
-  <property-block>
-  <h4><%= special_abilitie['name'] %>.</h4>
-  <p><%= special_abilitie['desc'] %></p>
-  </property-block>
+    <property-block>
+    <h4><%= special_abilitie['name'] %>.</h4>
+    <p><%= special_abilitie['desc'] %></p>
+    </property-block>
   <% end %>
 
   <% if @creature.actions_hash.length > 0 %>
-  <h3>Actions</h3>
-  <% end %>
-  <% @creature.actions_hash.each do |action| %>
-  <property-block>
-  <h4><%= action['name'] %>.</h4>
-  <p><%= action['desc'] %></p>
-  </property-block>
+    <h3>Actions</h3>
+    <% @creature.actions_hash.each do |action| %>
+      <property-block>
+      <h4><%= action['name'] %>.</h4>
+      <p><%= action['desc'] %></p>
+      </property-block>
+    <% end %>
   <% end %>
 
   <% if @creature.reactions_hash.length > 0 %>
-  <h3>Reactions</h3>
-  <% end %>
-  <% @creature.reactions_hash.each do |reaction| %>
-  <property-block>
-  <h4><%= reaction['name'] %>.</h4>
-  <p><%= reaction['desc'] %></p>
-  </property-block>
+    <h3>Reactions</h3>
+    <% @creature.reactions_hash.each do |reaction| %>
+      <property-block>
+      <h4><%= reaction['name'] %>.</h4>
+      <p><%= reaction['desc'] %></p>
+      </property-block>
+    <% end %>
   <% end %>
 
   <% if @creature.legendary_actions_hash.length > 0 %>
-  <h3>Legendary Actions</h3>
-  <% end %>
-  <% @creature.legendary_actions_hash.each do |legendary_action| %>
-  <property-block>
-  <h4><%= legendary_action['name'] %>.</h4>
-  <p><%= legendary_action['desc'] %></p>
-  </property-block>
+    <h3>Legendary Actions</h3>
+    <% @creature.legendary_actions_hash.each do |legendary_action| %>
+      <property-block>
+      <h4><%= legendary_action['name'] %>.</h4>
+      <p><%= legendary_action['desc'] %></p>
+      </property-block>
+    <% end %>
   <% end %>
 
   
