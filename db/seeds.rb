@@ -29,6 +29,14 @@ puts 'Creating Items as defined in ' + seed_path + 'items.seeds.rb'
 item_seed_path = seed_path + 'items.seeds.rb'
 load item_seed_path
 
+puts 'Creating Spells as defined in ' + seed_path + 'spells.seeds.rb'
+spell_seed_path = seed_path + 'spells.seeds.rb'
+load spell_seed_path
+
+puts 'Creating Creatures as defined in ' + seed_path + 'creatures.seeds.rb'
+spell_seed_path = seed_path + 'creatures.seeds.rb'
+load spell_seed_path
+
 damage_types = %w[
   Acid
   Bludgeoning
