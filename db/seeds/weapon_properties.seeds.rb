@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'json'
 
-url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/5e-SRD-Weapon-Properties.json'
+url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/src/5e-SRD-Weapon-Properties.json'
 
 open(url) do |weapon_properties_request|
   weapon_properties_json = weapon_properties_request.read

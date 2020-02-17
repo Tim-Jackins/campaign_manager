@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'json'
 
-url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/5e-SRD-Ability-Scores.json'
+url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/src/5e-SRD-Ability-Scores.json'
 
 open(url) do |ability_scores_request|
   ability_scores_json = ability_scores_request.read
