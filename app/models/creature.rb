@@ -131,12 +131,6 @@ class Creature < ApplicationRecord
     # t.string :damage_immunities
     # t.string :condition_immunities
 
-    self.blindsight ||= 0
-    self.darkvision ||= 0
-    self.tremorsense ||= 0
-    self.truesight ||= 0
-    self.telepathy ||= 0
-
     # t.integer :challenge_rating
 
     # t.string :skills

@@ -3,4 +3,5 @@ class Campaign < ApplicationRecord
 
   has_many :locations, dependent: :destroy
   has_many :main_quests, dependent: :destroy
+  has_many :encounters, dependent: :destroy
 end
