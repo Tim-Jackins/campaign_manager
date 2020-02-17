@@ -278,9 +278,6 @@
       }
     </script>
 
-<h1 class="mt-3"><%= @creature.name %></h1>
-<small><%= link_to 'Display plain statblock', creature_statblock_path(@creature) %></small><br>
-
+<body data-no-turbolink="true">
 <%= render 'statblock' %>
-<br>
-<%= link_to 'Back', creatures_path %>
+</body>

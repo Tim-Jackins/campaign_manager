@@ -21,6 +21,26 @@ class CreaturesController < ApplicationController
     @rating_to_xp = rating_to_xp
   end
 
+  def statblock_show
+    @creature = Creature.find(params[:creature_id])
+    @ability_scores = JSON.parse(AbilityScore.all.to_json)
+    skill_to_ability_score = {}
+    Skill.all.each do |skill|
+      skill_to_ability_score[skill.name] = skill.ability_score.name
+    end
+    @skill_to_ability_score = skill_to_ability_score
+
+    rating_to_xp = {}
+    ChallengeRating.all.each do |challenge_rating|
+      rating_to_xp[challenge_rating.rating] = challenge_rating.xp
+    end
+    @rating_to_xp = rating_to_xp
+
+    respond_to do |format|
+      format.html { render 'creatures/show_statblock', layout: false }
+    end
+  end
+
   def new
     @creature = Creature.new
 
@@ -103,6 +123,16 @@ class CreaturesController < ApplicationController
     end
   end
 
+  def search
+    puts params['name']
+    @creature = Creature.find_by(name: params['name'])
+    if @creature
+      render json: @creature.to_json
+    else
+      render json: 'Nothing found'.to_json
+    end
+  end
+
   def destroy
     @creature = Creature.find(params[:id])
     @creature.destroy
@@ -150,12 +180,6 @@ class CreaturesController < ApplicationController
       :damage_resistances,
       :damage_immunities,
       :condition_immunities,
-
-      :blindsight,
-      :darkvision,
-      :tremorsense,
-      :truesight,
-      :telepathy,
 
       :challenge_rating,
 
