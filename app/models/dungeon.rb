@@ -3,23 +3,11 @@ class Dungeon < ApplicationRecord
 
   serialize :rooms, JSON
 
-  # rooms have:
-  #   name
-  #   description
-  #   enemies
-  #     name
-  #     count
-  #   items
-  #     name
-  #     count
-  #   completed
-  #   notes
-
   # Room example:
   # {
   #   'name' => '',
   #   'environment' => '',
-  #   'enemies' => [
+  #   'creatures' => [
   #     {
   #       'name' => '',
   #       'count' => 
