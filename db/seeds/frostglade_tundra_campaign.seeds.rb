@@ -290,11 +290,11 @@ Dungeon.create(
   dungeonable: trip_to_sharp_peak
 )
 
-training_battle = Encounter.create(
+training_battle = frostglade_tundra.encounters.create(
   name: 'Training battle',
   level: 1,
-  type: '',
   description: "This is tutorial quest.\n\nGifford (Human, male, officer) has invited characters to barracks to practice combat skills with Fist of Law soldiers.",
+  reward: '20gp',
   completed: false,
   encounterable: Building.find_by(name: 'Barracks')
 )
