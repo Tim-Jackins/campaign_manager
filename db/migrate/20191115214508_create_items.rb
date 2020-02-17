@@ -3,29 +3,36 @@
 class CreateItems < ActiveRecord::Migration[6.0]
   def change
     create_table :items do |t|
-      # All items
       t.string :name
-      t.string :cost
-      t.text :item_category
-      t.integer :weight
-
-      # Weapon
-      t.string :damage_dice
-      t.string :damage_type
-      t.integer :range_short
-      t.integer :range_long
-      t.text :weapon_properties
-      t.integer :throw_range_short
-      t.integer :throw_range_long
-
-      # Armor
-      t.text :armor_class_json
-      t.text :str_minimum
-      t.text :stealth_disadvantage
-
-      # Equipment
-      t.string :gear_category
       t.text :description
+      t.string :category
+      t.string :cost
+      t.integer :weight
+      t.string :rarity
+
+      t.string :gear_category
+      t.string :tool_category
+
+      t.string :vehicle_category
+      t.string :vehicle_speed
+      t.string :capacity
+
+      t.integer :ac
+      t.boolean :dex_bonus
+      t.integer :max_bonus
+      t.string :armor_type
+      t.integer :strength_required
+      t.boolean :stealth_disadvantage
+
+      t.string :damage
+      t.string :weapon_category
+      t.string :range_type
+      t.integer :range_close
+      t.integer :range_far
+      t.integer :dice_count
+      t.integer :dice_value
+      t.string :damage_type
+      t.string :properties
 
       t.timestamps
     end
