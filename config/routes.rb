@@ -14,10 +14,19 @@ Rails.application.routes.draw do
       resources :main_quests, defaults: { format: 'json' } do
         resources :quests
       end
+
+      resources :encounters
+      resources :dungeons
     end
 
-    resources :creatures
+    get 'creatures/search/', to: 'creatures#search'
+    resources :creatures do
+      get 'statblock/', to: 'creatures#statblock_show' # Returns just the statblock
+    end
+
+    get 'items/search/', to: 'items#search'
     resources :items
+
     resources :characters
   end
 
