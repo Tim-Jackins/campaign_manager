@@ -2,10 +2,11 @@ class DungeonsController < ApplicationController
   def show
     @dungeon = Dungeon.find(params[:id])
 
-    render json: @quest.to_json(
+    render json: @dungeon.to_json(
       only: %i[id name rooms],
       include: [
-        :encounter
+        :encounter,
+        :quest
       ]
     )
   end
