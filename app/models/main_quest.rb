@@ -3,7 +3,7 @@
 class MainQuest < ApplicationRecord
   belongs_to :campaign
 
-  has_many :quests, as: :questable
+  has_many :quests
 
   def quest_progress
     total_quests = quests.size
@@ -17,5 +17,9 @@ class MainQuest < ApplicationRecord
                         end
 
     [completed_quests, total_quests]
+  end
+
+  def quests_sorted
+    quests.sort { |a, b| a.order <=> b.order }
   end
 end
