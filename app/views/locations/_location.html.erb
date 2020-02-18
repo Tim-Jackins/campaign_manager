@@ -2,7 +2,7 @@
 
 <div class="media text-muted pt-3" id=<%= location.id %>>
   <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"></rect><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
-  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+  <p class="media-body pb-3 mb-0 small lh-125">
     <strong class="d-block text-gray-dark"><%= location.name %> <span data-toggle="tooltip" data-placement="right" title="Encounters completed / available">(<%= "#{location.encounter_progress[0]}/#{location.encounter_progress[1]}" %>)</span></strong>
     <%= location.short_description %>
   </p>
@@ -10,13 +10,19 @@
     Expand
   </button>
 </div>
-<div class="collapse" id="collapse_location_<%= location.id %>">
+
+<div class="collapse pb-3" id="collapse_location_<%= location.id %>">
   <div class="card card-body">
     <p>
       <div class="row">
         <div class="col-sm" style="text-align: center;">
           <button type="button" class="btn btn-success" id="new_building_location_id_<%= location.id %>">
             New Building
+          </button>
+        </div>
+        <div class="col-sm" style="text-align: center;">
+          <button type="button" class="btn btn-success" id="new_encounter_location_id_<%= location.id %>">
+            New Encounter
           </button>
         </div>
         <div class="col-sm" style="text-align: center;">
@@ -38,6 +44,24 @@
 
     <%= location.description %>
     
+    <h3 class="pt-3">Encounters</h3>
+
+    <% if location.encounters.size.positive? %>
+      <ul class="list-group w-75">
+        <% for encounter in location.encounters %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong><%= "#{encounter.name} (level #{encounter.level})" %></strong>
+            <div class="btn-group pull-right" role="group">
+              <a role="button" class="btn btn-secondary" href="<%= edit_campaign_encounter_path(@campaign, encounter) %>">edit / add dungeon</a>
+              <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-secondary">No encounters at this location.</p>
+    <% end %>
+
     <h3 class="pt-3">Buildings</h3>
     
     <% if location.buildings.exists? %>
@@ -47,13 +71,20 @@
       <li class="list-group-item">
         <strong><%= building.name %>:</strong> <%= building.description %>
 
+        <a href="#" type="button" id="new_encounter_building_id_<%= building.id %>">
+          new encounter
+        </a>
+
         <% if building.encounters.size.positive? %>
           <h4 class="pt-3">Encounters: </h4>
           <ul class="list-group w-75">
             <% for encounter in building.encounters %>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <%= encounter.name %>
-                <a class="pull-right" href="#">load into simulator</a>
+                <div class="btn-group pull-right" role="group">
+                  <a role="button" class="btn btn-secondary" href="<%= edit_campaign_encounter_path(@campaign, encounter) %>">edit / add dungeon</a>
+                  <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+                </div>
               </li>
             <% end %>
           </ul>
@@ -69,4 +100,7 @@
 
   </div>
 </div>
+
+<hr class="mt-0 mb-0 w-75">
+
 <% end %>
