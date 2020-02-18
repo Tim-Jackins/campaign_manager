@@ -3,6 +3,7 @@ class CreateQuests < ActiveRecord::Migration[6.0]
     create_table :quests do |t|
       t.string :name
       t.integer :level
+      t.integer :order
 
       t.text :description
       t.string :reward
