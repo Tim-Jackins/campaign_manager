@@ -1,0 +1,80 @@
+<%= form_with model: @encounter, url: campaign_encounter_path(@encounter), local: true do |form| %>
+
+<% if @encounter.errors.any? %>
+<div id="error_explanation">
+  <h2>
+    <%= pluralize(@encounter.errors.count, "error") %> prohibited
+    this encounter from being saved:
+  </h2>
+  <ul>
+    <% @encounter.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <p>
+        <%= form.label :name %><br>
+        <%= form.text_field :name %>
+      </p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <p>
+        <%= form.label :level %><br>
+        <div class="d-flex  my-4">
+          <input id="encounter_level"
+                 name="encounter[level]"
+                 class="range-field w-25"
+                 type="range"
+                 value="<%= @encounter.level %>"
+                 min="1"
+                 max="30" />
+          <span id="level_readout" class="font-weight-bold indigo-text ml-2 mt-1"><%= @encounter.level %></span>
+        </div><br>
+      </p>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <p>
+        <%= form.label :reward %><br>
+        <%= form.text_field :reward %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+<p>
+  <%= form.label :description %><br>
+  <%= form.text_area :description, class: 'w-75' %>
+</p>
+</div>
+
+<div class="form-group">
+  <p>
+    Completed:
+    <%= form.check_box :completed %>
+  </p>
+</div>
+
+
+<p>
+  <%= form.submit class: 'btn btn-primary' %>
+</p>
+
+<p>
+  <%= link_to 'Destroy', campaign_encounter_path(@encounter),
+    role: 'button',
+    class: 'btn btn-danger',
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %>
+</p>
+
+<% end %>
