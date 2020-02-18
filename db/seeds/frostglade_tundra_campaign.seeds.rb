@@ -173,6 +173,7 @@ vaasa_traders = MainQuest.create(
 potato_cellar = Quest.create(
   name: 'Potato cellar',
   level: 1,
+  order: 1,
   description: "Characters meet Meishir (Human, male, businessmen) first time at Vaasa Traders office.\n\nMeishir offers job for characters.\n\nVaasa Trader's potato cellar is infested by rats. There are some old potions in cellar and characters are allowed to take those.",
   reward: '10 gp and 200 xp',
   main_quest: vaasa_traders,
@@ -183,7 +184,7 @@ potato_cellar_rooms = [
   {
     'name' => 'Entrance',
     'environment' => 'Town, stairs down, door',
-    'enemies' => [],
+    'creatures' => [],
     'items' => [],
     'completed' => false,
     'notes' => ''
@@ -191,7 +192,7 @@ potato_cellar_rooms = [
   {
     'name' => 'First room',
     'environment' => 'Warehouse, two doors',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Giant Rat',
         'count' => 2
@@ -204,7 +205,7 @@ potato_cellar_rooms = [
   {
     'name' => 'Second room',
     'environment' => 'Warehouse, shelf, potatoes',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Rat',
         'count' => 4
@@ -222,7 +223,7 @@ potato_cellar_rooms = [
   {
     'name' => 'Third room',
     'environment' => 'Warehouse, potatoes',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Giant Rat',
         'count' => 2
@@ -239,18 +240,21 @@ Dungeon.create(
   dungeonable: potato_cellar
 )
 
-trip_to_sharp_peak = vaasa_traders.quests.create(
+trip_to_sharp_peak = Quest.create(
   name: 'Trip to Sharp-peak mine',
   level: 1,
+  order: 2,
   description: 'There is work available at Sharp-peak mine. Meishir asks characters to meet Thelmond in Sharp-peak mine office. When characters have completed the task at Sharp-peak mine Meishir asks characters to meet him again in Farcross.',
   reward: '200 xp',
+  main_quest: vaasa_traders,
+  completed: false,
   questable: Building.find_by(name: 'Vaasa Traders')
 )
 trip_to_sharp_peak_rooms = [
   {
     'name' => 'First encounter',
     'environment' => 'Tundra, snow, road',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Giant Weasel',
         'count' => 2
@@ -262,7 +266,7 @@ trip_to_sharp_peak_rooms = [
   {
     'name' => 'Second encounter',
     'environment' => 'Tundra, snow, road',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Wolf',
         'count' => 1
@@ -274,7 +278,7 @@ trip_to_sharp_peak_rooms = [
   {
     'name' => 'Third encounter',
     'environment' => 'Tundra, snow, road',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Giant Weasel',
         'count' => 2
@@ -302,7 +306,7 @@ training_battle_rooms = [
   {
     'name' => 'First encounter',
     'environment' => 'Town, barracks, training ground',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Guard',
         'count' => 2
@@ -315,7 +319,7 @@ training_battle_rooms = [
   {
     'name' => 'Second encounter',
     'environment' => 'Town, barracks, training ground',
-    'enemies' => [
+    'creatures' => [
       {
         'name' => 'Commoner',
         'count' => 4
@@ -332,3 +336,5 @@ Dungeon.create(
   dungeonable: training_battle
   # encounter_id: training_battle.id
 )
+
+MainQuest.first.quests.sort { |a, b| a.order <=> b.order }
