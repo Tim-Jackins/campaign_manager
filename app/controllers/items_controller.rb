@@ -18,4 +18,14 @@ class ItemsController < ApplicationController
     # end
     # @rating_to_xp = rating_to_xp
   end
+
+  def search
+    puts params['name']
+    @item = Item.find_by(name: params['name'])
+    if @item
+      render json: @item.to_json
+    else
+      render json: 'Nothing found'.to_json
+    end
+  end
 end
