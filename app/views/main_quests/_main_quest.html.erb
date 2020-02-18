@@ -41,9 +41,16 @@
     <% if main_quest.quests.exists? %>
     <p>
     <ul class="list-group">
-      <% main_quest.quests.each do |quest| %>
+      <% main_quest.quests_sorted.each do |quest| %>
       <li class="list-group-item">
-        <strong><%= quest.name %>:</strong> <%= quest.description %>
+        <strong><%= "|#{quest.order}|     " %></strong><%= "#{quest.name} (level #{quest.level}):" %>
+        <%= quest.description %>
+        <p>
+        <div class="btn-group pull-right" role="group">
+          <a role="button" class="btn btn-secondary" href="<%= edit_campaign_main_quest_quest_path(@campaign, main_quest, quest) %>">edit / add dungeon</a>
+          <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+        </div>
+        </p>
       </li>
       <% end %>
     </ul>

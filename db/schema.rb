@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_021346) do
   create_table "quests", force: :cascade do |t|
     t.string "name"
     t.integer "level"
+    t.integer "order"
     t.text "description"
     t.string "reward"
     t.boolean "completed"
