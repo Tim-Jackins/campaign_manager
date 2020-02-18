@@ -8,6 +8,7 @@ class CampaignsController < ApplicationController
 
     @new_location = Location.new
     @new_building = Building.new
+    @new_encounter = Encounter.new
 
     @new_main_quest = MainQuest.new
     @new_quest = Quest.new
