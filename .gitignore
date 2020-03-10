@@ -41,3 +41,5 @@ scripty_testing
 
 database_plan.xml
 database_command.sh
+
+*.sqlite3
