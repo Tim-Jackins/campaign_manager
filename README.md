@@ -26,3 +26,7 @@ rails server
 ## Debug
 
 `rdebug-ide --host 127.0.0.1 --port 1234 --dispatcher-port 26162 bin/rails server`
+
+## Todo
+
+fix true neutral
