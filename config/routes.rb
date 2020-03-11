@@ -16,7 +16,10 @@ Rails.application.routes.draw do
       end
 
       resources :encounters
-      resources :dungeons
+
+      resources :dungeons do
+        get 'simulate/', to: 'dungeons#simulate'
+      end
     end
 
     get 'creatures/search/', to: 'creatures#search'
