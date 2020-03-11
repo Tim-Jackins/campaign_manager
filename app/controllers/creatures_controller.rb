@@ -19,6 +19,9 @@ class CreaturesController < ApplicationController
       rating_to_xp[challenge_rating.rating] = challenge_rating.xp
     end
     @rating_to_xp = rating_to_xp
+
+    renderer = Redcarpet::Render::HTML
+    @markdown = Redcarpet::Markdown.new renderer
   end
 
   def statblock_show
@@ -35,6 +38,9 @@ class CreaturesController < ApplicationController
       rating_to_xp[challenge_rating.rating] = challenge_rating.xp
     end
     @rating_to_xp = rating_to_xp
+
+    renderer = Redcarpet::Render::HTML
+    @markdown = Redcarpet::Markdown.new renderer
 
     respond_to do |format|
       format.html { render 'creatures/show_statblock', layout: false }
