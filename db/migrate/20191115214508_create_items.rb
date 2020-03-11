@@ -10,6 +10,8 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.integer :weight
       t.string :rarity
 
+      t.references :quest, foreign_key: true, index: true
+
       t.string :gear_category
       t.string :tool_category
 

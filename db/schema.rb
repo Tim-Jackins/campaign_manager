@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_021346) do
     t.string "cost"
     t.integer "weight"
     t.string "rarity"
+    t.integer "quest_id"
     t.string "gear_category"
     t.string "tool_category"
     t.string "vehicle_category"
@@ -283,6 +284,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_021346) do
     t.string "properties"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["quest_id"], name: "index_items_on_quest_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -391,6 +393,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_021346) do
   add_foreign_key "drops", "creatures"
   add_foreign_key "drops", "items", column: "items_id"
   add_foreign_key "encounters", "campaigns"
+  add_foreign_key "items", "quests"
   add_foreign_key "locations", "campaigns"
   add_foreign_key "main_quests", "campaigns"
   add_foreign_key "quests", "main_quests"
