@@ -83,7 +83,7 @@
                 <%= encounter.name %>
                 <div class="btn-group pull-right" role="group">
                   <a role="button" class="btn btn-secondary" href="<%= edit_campaign_encounter_path(@campaign, encounter) %>">edit / add dungeon</a>
-                  <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+                  <a role="button" class="btn btn-secondary" href="<%= campaign_dungeon_simulate_path(@campaign, encounter.dungeon) %>">load into simulator</a>
                 </div>
               </li>
             <% end %>

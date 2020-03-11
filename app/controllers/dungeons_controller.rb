@@ -5,8 +5,7 @@ class DungeonsController < ApplicationController
     render json: @dungeon.to_json(
       only: %i[id name rooms],
       include: [
-        :encounter,
-        :quest
+        :dungeonable
       ]
     )
   end
@@ -28,13 +27,13 @@ class DungeonsController < ApplicationController
     redirect_to @campaign
   end
 
-  # def destroy
-  #   @main_quest = MainQuest.find(params[:main_quest_id])
-  #   @campaign = @main_quest.campaign
-  #   @quest = @main_quest.quests.find(quest_params)
-  #   @quest.destroy
-  #   redirect_to campaign_path(@campaign)
-  # end
+  def simulate
+    @dungeon = Dungeon.find(params[:dungeon_id])
+
+    respond_to do |format|
+      format.html { render 'dungeons/simulator' }
+    end
+  end
 
   private
 

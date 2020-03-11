@@ -48,7 +48,7 @@
         <p>
         <div class="btn-group pull-right" role="group">
           <a role="button" class="btn btn-secondary" href="<%= edit_campaign_main_quest_quest_path(@campaign, main_quest, quest) %>">edit / add dungeon</a>
-          <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+          <a role="button" class="btn btn-secondary" href="<%= campaign_dungeon_simulate_path(@campaign, quest.dungeon) %>">load into simulator</a>
         </div>
         </p>
       </li>
