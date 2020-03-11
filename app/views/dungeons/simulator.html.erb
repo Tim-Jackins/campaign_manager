@@ -1,0 +1,18 @@
+<h3 class="mt-1 mb-5 display-3"><%= @dungeon.name %></h3>
+
+<script id="dungeon_rooms" type="application/json"><%= @dungeon.rooms.html_safe %></script>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <%= @dungeon.dungeonable_type %> Info
+  </div>
+  <div class="card-body">
+    <%= @dungeon.dungeonable.description %>
+  </div>
+</div>
+
+<div id="simulator_app"></div>
+
+
+<%= javascript_pack_tag 'simulate_dungeon', 'data-turbolinks-track': 'reload' %>
+<%# javascript_pack_tag 'load_react_dungeon_simulator', 'data-turbolinks-track': 'reload' %>
