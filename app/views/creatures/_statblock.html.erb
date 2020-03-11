@@ -116,7 +116,7 @@ h4 {
   <% @creature.special_abilities_hash.each do |special_abilitie| %>
     <property-block>
     <h4><%= special_abilitie['name'] %>.</h4>
-    <p><%= special_abilitie['desc'] %></p>
+    <p><%= @markdown.render(special_abilitie['desc']) %></p>
     </property-block>
   <% end %>
 
@@ -125,7 +125,7 @@ h4 {
     <% @creature.actions_hash.each do |action| %>
       <property-block>
       <h4><%= action['name'] %>.</h4>
-      <p><%= action['desc'] %></p>
+      <%= @markdown.render(action['desc']).html_safe %>
       </property-block>
     <% end %>
   <% end %>
@@ -135,7 +135,7 @@ h4 {
     <% @creature.reactions_hash.each do |reaction| %>
       <property-block>
       <h4><%= reaction['name'] %>.</h4>
-      <p><%= reaction['desc'] %></p>
+      <p><%= @markdown.render(reaction['desc']) %></p>
       </property-block>
     <% end %>
   <% end %>
@@ -145,7 +145,7 @@ h4 {
     <% @creature.legendary_actions_hash.each do |legendary_action| %>
       <property-block>
       <h4><%= legendary_action['name'] %>.</h4>
-      <p><%= legendary_action['desc'] %></p>
+      <p><%= @markdown.render(legendary_action['desc']) %></p>
       </property-block>
     <% end %>
   <% end %>
