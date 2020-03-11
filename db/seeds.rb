@@ -184,6 +184,10 @@ puts 'Creating Characters as defined in ' + seed_path + 'characters.seeds.rb'
 characters_seed_path = seed_path + 'characters.seeds.rb'
 load characters_seed_path
 
-puts 'Creating Campaigns as defined in ' + seed_path + 'frostglade_tundra_campaign.seeds.rb'
+puts 'Creating Campaign as defined in ' + seed_path + 'frostglade_tundra_campaign.seeds.rb'
 campaigns_seed_path = seed_path + 'frostglade_tundra_campaign.seeds.rb'
+load campaigns_seed_path
+
+puts 'Creating Campaign as defined in ' + seed_path + 'clam_island_campaign.seeds.rb'
+campaigns_seed_path = seed_path + 'clam_island_campaign.seeds.rb'
 load campaigns_seed_path
