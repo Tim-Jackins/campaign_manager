@@ -51,13 +51,11 @@ class InitiativeTable extends React.Component
     search_url = "/creatures/search/?name=#{creature_name}"
     battling_creatures = @state.battling_creatures
 
-    $.ajax search_url, {
-      type: 'GET'
-      dataType: 'json'
-      error: (jqXHR, textStatus, errorThrown) ->
-        alert('Request unsuccessful.')
-      success: (data, textStatus, jqXHR) ->
-        unless data == 'Nothing found'
+    that = @
+    fetch(search_url)
+      .then(
+        (result) ->
+          data = result.json()
           initiative = Math.floor(Math.random() * 20)
           ac = 10
           ac = data.armor_class if data.armor_class?
@@ -65,10 +63,12 @@ class InitiativeTable extends React.Component
 
           new_creature = new BattlingCreature(creature_name, initiative, ac, current_health, data)
           battling_creatures.push(new_creature)
-        else
+          
+          that.setState({ battling_creatures: battling_creatures })
+
+        (error) ->
           alert('No creature found')
-    }
-    @setState({ battling_creatures: battling_creatures })
+      )
 
   remove_battling_creature: () ->
     console.log('Remove this creature')
@@ -136,14 +136,12 @@ class InitiativeTable extends React.Component
   
   make_initiative_rows: () ->
     battling_creatures = @state.battling_creatures
-
-    Creature	Initiative	AC	Health	Remove
-
     initiative_rows = []
+    key_index = 0
 
     for creature in battling_creatures
       initiative_rows.push(
-        e 'tr', null,
+        e 'tr', { key: key_index },
           e 'td', null, creature.name
           e 'td', null, creature.initiative
           e 'td', null, creature.ac
@@ -152,6 +150,7 @@ class InitiativeTable extends React.Component
             e 'button', { type: 'button', className: 'btn btn-success', onClick: @remove_battling_creature },
               e 'i', { className: 'fas fa-cross' }
       )
+      key_index++
     
     return initiative_rows
 
@@ -171,7 +170,7 @@ class InitiativeTable extends React.Component
     active_room_json = @state.dungeon_rooms[@state.active_room]
     active_room_info = @make_room_card_body(active_room_json)
 
-    initiative_rows = @make_initiative_rows
+    initiative_rows = @make_initiative_rows()
 
     return (
       e 'div', null,
