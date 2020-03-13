@@ -1,5 +1,6 @@
 React = require('react')
 ReactDOM = require('react-dom')
+axios = require('axios')
 
 e = React.createElement
 
@@ -52,22 +53,22 @@ class InitiativeTable extends React.Component
     battling_creatures = @state.battling_creatures
 
     that = @
-    fetch(search_url)
-      .then(
-        (result) ->
-          data = result.json()
-          initiative = Math.floor(Math.random() * 20)
-          ac = 10
-          ac = data.armor_class if data.armor_class?
-          current_health = data.hit_points
 
-          new_creature = new BattlingCreature(creature_name, initiative, ac, current_health, data)
-          battling_creatures.push(new_creature)
-          
-          that.setState({ battling_creatures: battling_creatures })
+    axios.get(search_url)
+      .then((response) ->
+        data = response.data
 
-        (error) ->
-          alert('No creature found')
+        initiative = Math.floor(Math.random() * 20)
+        ac = 10
+        ac = data.armor_class if data.armor_class?
+        current_health = data.hit_points
+        new_creature = new BattlingCreature(creature_name, initiative, ac, current_health, data)
+        battling_creatures.push(new_creature)
+
+        that.setState({ battling_creatures: battling_creatures })
+      )
+      .catch((error) ->
+        alert('No creature found')
       )
 
   remove_battling_creature: () ->
