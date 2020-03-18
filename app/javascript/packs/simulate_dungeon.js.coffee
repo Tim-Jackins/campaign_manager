@@ -35,6 +35,7 @@ class InitiativeTable extends React.Component
 
     @handle_room_change = @handle_room_change.bind(@)
     @add_battling_creature = @add_battling_creature.bind(@)
+    @remove_battling_creature = @remove_battling_creature.bind(@)
     @make_room_card_body = @make_room_card_body.bind(@)
     @make_initiative_rows = @make_initiative_rows.bind(@)
     @create_room_options = @create_room_options.bind(@)
@@ -64,6 +65,9 @@ class InitiativeTable extends React.Component
         current_health = data.hit_points
         new_creature = new BattlingCreature(creature_name, initiative, ac, current_health, data)
         battling_creatures.push(new_creature)
+        battling_creatures.sort((a, b) ->
+          a.initiative - b.initiative
+        )
 
         that.setState({ battling_creatures: battling_creatures })
       )
@@ -72,7 +76,18 @@ class InitiativeTable extends React.Component
       )
 
   remove_battling_creature: () ->
-    console.log('Remove this creature')
+    list_of_parents = $(event.target).parentsUntil('tbody')
+    table_row = list_of_parents[list_of_parents.length - 1]
+    index_of_removed_creature = table_row.id
+
+    battling_creatures = @state.battling_creatures
+    battling_creatures.splice(index_of_removed_creature, 1)
+    battling_creatures.sort((a, b) ->
+      a.initiative - b.initiative
+    )
+    @setState({ battling_creatures: battling_creatures })
+
+    # $(table_row).remove()
 
   make_room_card_body: (room_json) ->
     creatures_json = room_json['creatures']
@@ -134,7 +149,7 @@ class InitiativeTable extends React.Component
                   item_table
 
     return temp_room
-  
+
   make_initiative_rows: () ->
     battling_creatures = @state.battling_creatures
     initiative_rows = []
@@ -142,14 +157,14 @@ class InitiativeTable extends React.Component
 
     for creature in battling_creatures
       initiative_rows.push(
-        e 'tr', { key: key_index },
+        e 'tr', { key: key_index, id: key_index },
           e 'td', null, creature.name
           e 'td', null, creature.initiative
           e 'td', null, creature.ac
           e 'td', null, creature.current_health
           e 'td', null,
-            e 'button', { type: 'button', className: 'btn btn-success', onClick: @remove_battling_creature },
-              e 'i', { className: 'fas fa-cross' }
+            e 'button', { type: 'button', className: 'btn btn-danger', onClick: @remove_battling_creature },
+              e 'i', { className: 'fas fa-times' }
       )
       key_index++
     
@@ -167,7 +182,7 @@ class InitiativeTable extends React.Component
 
   render: ->
     dungeon_room_options = @create_room_options()
-    
+
     active_room_json = @state.dungeon_rooms[@state.active_room]
     active_room_info = @make_room_card_body(active_room_json)
 
