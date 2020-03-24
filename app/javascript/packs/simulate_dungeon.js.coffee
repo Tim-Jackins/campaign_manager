@@ -39,6 +39,7 @@ class InitiativeTable extends React.Component
     @make_room_card_body = @make_room_card_body.bind(@)
     @make_initiative_rows = @make_initiative_rows.bind(@)
     @create_room_options = @create_room_options.bind(@)
+    @add_player_creature = @add_player_creature.bind(@)
 
   handle_room_change: () ->
     old_room_name = @room_name
@@ -180,6 +181,31 @@ class InitiativeTable extends React.Component
       )
     return options
 
+  add_player_creature: () ->
+    character_name = $('#player_character_name').val()
+    character_initiative = $('#player_character_initiative').val()
+    character_ac = $('#player_character_ac').val()
+    character_health = $('#player_character_health').val()
+
+    $('#player_character_name').val('')
+    $('#player_character_initiative').val('')
+    $('#player_character_ac').val('')
+    $('#player_character_health').val('')
+
+    battling_creatures = @state.battling_creatures
+    new_creature = new BattlingCreature(character_name, character_initiative, character_ac, character_health, {})
+    battling_creatures.push(new_creature)
+    battling_creatures.sort((a, b) ->
+      a.initiative - b.initiative
+    )
+    @setState({ battling_creatures: battling_creatures })
+
+    console.log(character_name)
+    console.log(character_initiative)
+    console.log(character_ac)
+    console.log(character_health)
+    
+
   render: ->
     dungeon_room_options = @create_room_options()
 
@@ -200,6 +226,17 @@ class InitiativeTable extends React.Component
               e 'th', { scope: 'col' }, 'Remove'
           e 'tbody', null,
             initiative_rows
+        e 'div', { className: 'input-group mb-3' },
+          e 'div', { className: 'input-group-prepend' },
+            e 'span', { className: 'input-group-text' },
+              'Player Character'
+          e 'input', { type: 'text', id: 'player_character_name', className: 'form-control', placeholder: 'Name' }
+          e 'input', { type: 'number', id: 'player_character_initiative', className: 'form-control', placeholder: 'Initiative' }
+          e 'input', { type: 'number', id: 'player_character_ac', className: 'form-control', placeholder: 'AC' }
+          e 'input', { type: 'number', id: 'player_character_health', className: 'form-control', placeholder: 'Health' }
+          e 'div', { className: 'input-group-append' },
+            e 'button', { className: 'btn btn-success', type: 'button', onClick: @add_player_creature },
+              e 'i', { className: 'fas fa-plus' }
         e 'div', { className: 'row' },
           e 'div', { className: 'col-2' },
             e 'select', { id: 'dungeon_room_select', className: 'custom-select', onChange: @handle_room_change },
