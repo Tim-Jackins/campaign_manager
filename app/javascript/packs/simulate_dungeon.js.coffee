@@ -7,12 +7,6 @@ e = React.createElement
 class BattlingCreature
   constructor: (@name, @initiative, @ac, @current_health, @stats)->
 
-  hurt: (hp) ->
-    @health -= hp
-
-  heal: (hp) ->
-    @health += hp
-  
   is_dead: () ->
     return @current_health <= 0
 
@@ -40,6 +34,10 @@ class InitiativeTable extends React.Component
     @make_initiative_rows = @make_initiative_rows.bind(@)
     @create_room_options = @create_room_options.bind(@)
     @add_player_creature = @add_player_creature.bind(@)
+    @increase_creature_initiative = @increase_creature_initiative.bind(@)
+    @decrease_creature_initiative = @decrease_creature_initiative.bind(@)
+    @damage_creature = @damage_creature.bind(@)
+    @heal_creature = @heal_creature.bind(@)
 
   handle_room_change: () ->
     old_room_name = @room_name
@@ -160,9 +158,27 @@ class InitiativeTable extends React.Component
       initiative_rows.push(
         e 'tr', { key: key_index, id: key_index },
           e 'td', null, creature.name
-          e 'td', null, creature.initiative
+          e 'td', null,
+            e 'div', { className: 'input-group' },
+              e 'div', { className: 'input-group-prepend' },
+                e 'span', { className: 'input-group-text' },
+                  creature.initiative
+              e 'div', { className: 'input-group-append' },
+                e 'button', { className: 'btn btn-secondary', type: 'button', onClick: @increase_creature_initiative },
+                  e 'i', { className: 'fas fa-plus' }
+                e 'button', { className: 'btn btn-secondary', type: 'button', onClick: @decrease_creature_initiative },
+                  e 'i', { className: 'fas fa-minus' }
           e 'td', null, creature.ac
-          e 'td', null, creature.current_health
+          e 'td', null,
+            e 'div', { className: 'input-group' },
+              e 'div', { className: 'input-group-prepend' },
+                e 'span', { className: 'input-group-text' },
+                  creature.current_health
+              e 'div', { className: 'input-group-append' },
+                e 'button', { className: 'btn btn-danger', type: 'button', onClick: @damage_creature },
+                  e 'i', { className: 'fas fa-band-aid' }
+                e 'button', { className: 'btn btn-success', type: 'button', onClick: @heal_creature },
+                  e 'i', { className: 'far fa-heart' }
           e 'td', null,
             e 'button', { type: 'button', className: 'btn btn-danger', onClick: @remove_battling_creature },
               e 'i', { className: 'fas fa-times' }
@@ -204,7 +220,56 @@ class InitiativeTable extends React.Component
     console.log(character_initiative)
     console.log(character_ac)
     console.log(character_health)
-    
+
+  increase_creature_initiative: () ->
+    battling_creatures = Object.assign([], @state.battling_creatures)
+
+    parent_row = $(event.target).closest('tr')
+    creature_id = parent_row[0].id
+    battling_creatures[creature_id].initiative++
+    battling_creatures.sort((a, b) ->
+      a.initiative - b.initiative
+    )
+    @setState({ battling_creatures: battling_creatures })
+
+  decrease_creature_initiative: () ->
+    battling_creatures = Object.assign([], @state.battling_creatures)
+
+    parent_row = $(event.target).closest('tr')
+    creature_id = parent_row[0].id
+    battling_creatures[creature_id].initiative--
+    battling_creatures.sort((a, b) ->
+      a.initiative - b.initiative
+    )
+    @setState({ battling_creatures: battling_creatures })
+
+  damage_creature: () ->
+    battling_creatures = @state.battling_creatures
+    inputted_increment = $('#creature_damage_increment').val()
+    if inputted_increment
+      increment = parseInt(inputted_increment)
+    else
+      increment = 0
+    parent_row = $(event.target).closest('tr')
+    creature_id = parent_row[0].id
+    current_health = parseInt(battling_creatures[creature_id].current_health)
+    current_health -= increment
+    battling_creatures[creature_id].current_health = current_health
+    @setState({ battling_creatures: battling_creatures })
+
+  heal_creature: () ->
+    battling_creatures = @state.battling_creatures
+    inputted_increment = $('#creature_damage_increment').val()
+    if inputted_increment
+      increment = parseInt(inputted_increment)
+    else
+      increment = 0
+    parent_row = $(event.target).closest('tr')
+    creature_id = parent_row[0].id
+    current_health = parseInt(battling_creatures[creature_id].current_health)
+    current_health += increment
+    battling_creatures[creature_id].current_health = current_health
+    @setState({ battling_creatures: battling_creatures })
 
   render: ->
     dungeon_room_options = @create_room_options()
@@ -219,10 +284,13 @@ class InitiativeTable extends React.Component
         e 'table', { className: 'table table-bordered' },
           e 'thead', null,
             e 'tr', null,
-              e 'th', { scope: 'col' }, 'Creature'
+              e 'th', { scope: 'col' },
+                e 'span', null, 'Creature'
               e 'th', { scope: 'col' }, 'Initiative'
               e 'th', { scope: 'col' }, 'AC'
-              e 'th', { scope: 'col' }, 'Health'
+              e 'th', { scope: 'col' },
+                e 'label', { htmlFor: 'creature_damage_increment', className: 'mr-2' }, 'Health'
+                e 'input', { type: 'number', id: 'creature_damage_increment', placeholder: 'Increment' }
               e 'th', { scope: 'col' }, 'Remove'
           e 'tbody', null,
             initiative_rows
