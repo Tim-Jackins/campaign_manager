@@ -2,6 +2,18 @@ require 'json'
 
 temp_user = User.find_by(username: 'tim_jackins')
 
+bandit = Creature.find_by(name: 'Bandit')
+orc = Creature.find_by(name: 'Orc')
+lizardfolk = Creature.find_by(name: 'Lizardfolk')
+thug = Creature.find_by(name: 'Thug')
+rat = Creature.find_by(name: 'Rat')
+ogre = Creature.find_by(name: 'Ogre')
+berserker = Creature.find_by(name: 'Berserker')
+
+potion_of_healing = Item.find_by(name: 'Potion of healing')
+silver_bar = Item.find_by(name: 'Silver Bar')
+pike = Item.find_by(name: 'Pike')
+whip = Item.find_by(name: 'Whip')
 
 # Campaign has been created by Terhonator.
 
@@ -124,7 +136,6 @@ clam_island = Campaign.create(
   notes: notes
 )
 
-
 # Locations
 
 silverpearl = Location.create(
@@ -148,7 +159,7 @@ silverpearl_buildings = {
   'Loan Shark' => 'is bank. Bank buys, sells, loans, changes and stores bullions, gems, currencies and other valuable items. Loan Shark is run by Marcellus. (Human, male)',
   'Temple' => 'is dedicated to Umberlee, goddess of the sea. Temple offers healing services. Temple is run by Turell (Human, male, paladin) and Darchelle. (Human, female, cleric) Will mention the lost temple of Semuanya.',
   'Townhall of Silverpearl' => 'is administration building of Clam Island. Mayor of Silverpearl is Malvin Stormbane. (Human, male)',
-  'House of Mercenaries' => 'office is run by Trebirok. (Half-orc, male)'
+  'House of Mercenaries' => 'office is run by Trebirok. (Half-orc, male). There are 2 posters on the wall: 1 for the arrest dead or alive of Captain One-eye and 1 for the rescue of Sir Lorenzo (Human, male, businessman).'
 }
 silverpearl_buildings.each do |name, description|
   raise 'Building failed to be save' unless Building.create(name: name, description: description, location: silverpearl)
@@ -183,7 +194,6 @@ blackhollow_buildings = {
 blackhollow_buildings.each do |name, description|
   raise 'Building failed to be save' unless Building.create(name: name, description: description, location: blackhollow)
 end
-
 
 # Main Quests
 
@@ -221,7 +231,8 @@ warehouse_at_silverpearl_rooms = [
     'environment' => 'Warehouse, wine barrels, door',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'name' => bandit.name,
+        'id' => bandit.id,
         'count' => 2
       }
     ],
@@ -235,7 +246,8 @@ warehouse_at_silverpearl_rooms = [
     'creatures' => [],
     'items' => [
       {
-        'name' => 'Potion of Healing',
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
         'count' => 2,
       }
     ],
@@ -247,13 +259,15 @@ warehouse_at_silverpearl_rooms = [
     'environment' => 'Warehouse, wine barrels, two doors',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'id' => bandit.id,
+        'name' => bandit.name,
         'count' => 2
       },
     ],
     'items' => [
       {
-        'name' => 'Potion of Healing',
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
         'count' => 2,
       }
     ],
@@ -265,7 +279,8 @@ warehouse_at_silverpearl_rooms = [
     'environment' => 'Warehouse, wine barrels',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'id' => bandit.id,
+        'name' => bandit.name,
         'count' => 2
       },
     ],
@@ -279,7 +294,8 @@ warehouse_at_silverpearl_rooms = [
     'creatures' => [],
     'items' => [
       {
-        'name' => 'Paper note from Connor',
+        'id' => paper_note_from_connor.id,
+        'name' => paper_note_from_connor.name,
         'count' => 1
       }
     ],
@@ -302,7 +318,7 @@ connors_house = Quest.create(
   completed: false,
   questable: silverpearl
 )
-connor_house_key = connors_house.items.create(
+connors_house_key = connors_house.items.create(
   name: "Connor's house key",
   description: "This key is need to progress to the fifth room in Connor's house. DC10 Perception to find.",
   quest: connors_house
@@ -332,7 +348,8 @@ connors_house_rooms = [
     ],
     'items' => [
       {
-        'name' => 'Potion of Healing',
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
         'conut' => 2
       }
     ],
@@ -352,13 +369,15 @@ connors_house_rooms = [
     'environment' => 'House, fireplace, bed, trunk',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'id' => bandit.id,
+        'name' => bandit.name,
         'count' => 2
       }
     ],
     'items' => [
       {
-        'name' => 'Potion of Healing',
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
         'conut' => 2
       }
     ],
@@ -370,17 +389,20 @@ connors_house_rooms = [
     'environment' => 'House, table, chair, cabinet',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'id' => bandit.id,
+        'name' => bandit.name,
         'count' => 2
       }
     ],
     'items' => [
       {
-        'name' => "Bonecrusher's ledger",
+        'id' => bonecrushers_ledger.id,
+        'name' => bonecrushers_ledger.name,
         'count' => 1
       },
       {
-        'name' => "Connor's house key",
+        'id' => connors_house_key.id,
+        'name' => connors_house_key.name,
         'count' => 1
       }
     ],
@@ -392,7 +414,8 @@ connors_house_rooms = [
     'environment' => 'House, ale barrels, chest',
     'creatures' => [
       {
-        'name' => 'Bandit',
+        'id' => bandit.id,
+        'name' => bandit.name,
         'count' => 2
       }
     ],
@@ -406,76 +429,930 @@ Dungeon.create(
   rooms: JSON.dump(connors_house_rooms),
   dungeonable: connors_house
 )
-# bandit_house = Quest.create(
-#   name: "Connor's House",
-#   level: 2,
-#   order: 3,
-#   description: "Ledger contained information about house where some Bonecrushers are hiding. Trebirok hires characters to raid a house that was recently invaded by Bonecrushers. House is located on beach 2 miles north from Whitestrand.",
-#   reward: '10 gp and 300 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: whitestrand
-# )
-# warehouse_at_blackhollow = Quest.create(
-#   name: 'Warehouse at BLackhollow',
-#   level: 2,
-#   order: 4,
-#   description: 'Trebirok hires characters to raid a Bonecrusher warehouse in Blackhollow.',
-#   reward: '10 gp and 300 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: blackhollow
-# )
-# invaded_castle = Quest.create(
-#   name: 'Invaded Castle',
-#   level: 3,
-#   order: 5,
-#   description: 'Trebirok hires characters to raid a castle that was recently invaded by Bonecrushers. Castle is located near road between Whitestrand and Blackhollow.',
-#   reward: '15 gp and 450 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: blackhollow
-# )
-# jail = Quest.create(
-#   name: 'jail',
-#   level: 3,
-#   order: 6,
-#   description: 'Sir Lorenzo (Human, male, businessman) has been kidnapped. He is being held as prisoner by Bonecrushers. Trebirok hires characters rescue Sir Lorenzo. Jail is located on mountain in south part of Clam Island.',
-#   reward: '15 gp and 450 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: silverpearl
-# )
-# warehouse_at_whitestrand = Quest.create(
-#   name: 'Warehouse at Whitestrand',
-#   level: 3,
-#   order: 7,
-#   description: 'Trebirok hires characters to raid a Bonecrusher warehouse in Whitestrand.',
-#   reward: '15 gp and 450 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: whitestrand
-# )
-# ogre_cave = Quest.create(
-#   name: 'Ogre Cave',
-#   level: 4,
-#   order: 8,
-#   description: 'Trebirok hires characters to raid an ogre cave. Ogre cave is located deep in jungle in middle part of Clam Island.',
-#   reward: '20 gp and 600 XP',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: silverpearl
-# )
-# pirate_cove = Quest.create(
-#   name: 'Pirate Cove',
-#   level: 4,
-#   order: 9,
-#   description: 'Trebirok hires characters to raid a pirate cove. Bonecrusher Cove is located on beach at northernmost part of Clam Island.',
-#   reward: '1000 gp',
-#   main_quest: house_of_mecenaries,
-#   completed: false,
-#   questable: silverpearl
-# )
+
+bandit_house = Quest.create(
+  name: 'Bandit House',
+  level: 2,
+  order: 3,
+  description: 'The Ledger contained information about house where some Bonecrushers are hiding. Trebirok hires characters to raid a house that was recently invaded by Bonecrushers. House is located on beach 2 miles north from Whitestrand.',
+  reward: '10 gp and 300 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: whitestrand
+)
+bandit_house_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Beach, house, door'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'House, hallway, bench, two doors',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Second room',
+    'environment' => 'House, outhouse',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Third room, Combat',
+    'environment' => 'House, fireplace, table, two benches, window, two doors',
+    'creatures' => [
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 3
+      }
+    ],
+    'notes' => 'Edge of the window is located at height of 1 meter. (3,3 feet)'
+  },
+  {
+    'name' => 'Fourth room',
+    'environment' => 'House, barrel, cabinet, pile of vegetables',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'conut' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Fifth room, Combat',
+    'environment' => 'House, two beds, chest',
+    'creatures' => [
+      'id' => lizardfolk.id,
+      'name' => lizardfolk.name,
+      'count' => 2
+    ],
+    'items' => [
+      {
+        'id' => silver_bar.id,
+        'name' => silver_bar.name,
+        'conut' => 2
+      }
+    ],
+    'notes' => '10 + 1d20 Silver coins (1-3 gp)'
+  }
+]
+Dungeon.create(
+  name: 'Bandit House',
+  rooms: JSON.dump(bandit_house_rooms),
+  dungeonable: bandit_house
+)
+
+warehouse_at_blackhollow = Quest.create(
+  name: 'Warehouse at Blackhollow',
+  level: 2,
+  order: 4,
+  description: 'Trebirok hires characters to raid a Bonecrusher warehouse in Blackhollow. House is located on beach 2 miles north from Whitestrand.',
+  reward: '10 gp and 300 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: blackhollow
+)
+warehouse_map = warehouse_at_blackhollow.items.create(
+  name: 'warehouse_map',
+  description: 'This map shows to location of a castle the Bonecrushers are planning on attacking.',
+)
+warehouse_at_blackhollow_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Village, warehouse, door'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Warehouse, grain sacks, door',
+    'creatures' => [
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 3
+      }
+    ],
+  },
+  {
+    'name' => 'Second room',
+    'environment' => 'Warehouse, four beds, four trunks, door',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 4
+      }
+    ]
+  },
+  {
+    'name' => 'Third room, Combat',
+    'environment' => 'Warehouse, stairs, window, door',
+    'creatures' => [
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 3
+      }
+    ],
+    'notes' => 'Roll Perception (Wisdom, passive) check, DC 10. If check fails characters do not spot the trap. When character opens the door to fourth room to an arrow trap launches causing 1d8 damage. If characters have spotted the trap they can try to disable it. Roll Investigation (Intelligence) check, DC 10. If check fails the arrow trap launches causing 1d8 damage. Edge of the window is located at height of 1 meter. (3,3 feet)'
+  },
+  {
+    'name' => 'Fourth room, Combat',
+    'environment' => 'Warehouse, hallway, two doors',
+    'creatures' => [
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ],
+    'notes' => 'Hallway has an unlocked trapdoor near door to fifth room. If character steps on it they fall 3 meters (10 feet) to seventh room taking 1d6 falling damage. Trapdoor can be opened without danger.'
+  },
+  {
+    'name' => 'Fifth room',
+    'environment' => 'Warehouse, table, chair, window',
+    'item' => [
+      {
+        'id' => warehouse_map.id,
+        'name' => warehouse_map.name,
+        'count' => 2
+      },
+      {
+        'id' => silver_bar.id,
+        'name' => silver_bar.name,
+        'count' => 2
+      }
+    ],
+    'notes' => 'Edge of the window is located at height of 2 meters. (6,6 feet)'
+  },
+  {
+    'name' => 'Sixth room, Combat',
+    'environment' => 'Warehouse, ale barrels, door that leads out of dungeon',
+    'creatures' => [
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 3
+      }
+    ],
+    'notes' => 'Edge of the window is located at height of 2 meters. (6,6 feet)'
+  },
+  {
+    'name' => 'Seventh room',
+    'environment' => 'Warehouse, grain sacks, ladders',
+    'notes' => 'Character can climb up ladders to fourth room.'
+  }
+]
+Dungeon.create(
+  name: 'Warehouse at Blackhollow',
+  rooms: JSON.dump(warehouse_at_blackhollow_rooms),
+  dungeonable: warehouse_at_blackhollow
+)
+
+invaded_castle = Quest.create(
+  name: 'Invaded Castle',
+  level: 3,
+  order: 5,
+  description: 'Trebirok hires characters to raid a castle that was recently invaded by Bonecrushers. Castle is located near road between Whitestrand and Blackhollow.',
+  reward: '15 gp and 450 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: blackhollow
+)
+invaded_castle_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Jungle, castle, stairs up, door'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Castle, table, chair, door',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 1
+      },
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Second room, Combat',
+    'environment' => 'Castle, fireplace, door',
+    'creatures' => [
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 6
+      }
+    ],
+    'notes' => 'All bandits are sitting at a table eating.'
+  },
+  {
+    'name' => 'Third room',
+    'environment' => 'Castle, hallway, two doors',
+  },
+  {
+    'name' => 'Fourth room, Combat',
+    'environment' => 'Castle, weapon rack',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ],
+    'item' => [
+      {
+        'id' => pike.id,
+        'name' => pike.name,
+        'count' => 1
+      }
+    ]
+  },
+  {
+    'name' => 'Fifth room, Combat',
+    'environment' => 'Castle, door',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 6
+      },
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 6
+      }
+    ],
+    'notes' => 'All bandits are sitting at a table eating.'
+  },
+  {
+    'name' => 'Sixth room',
+    'environment' => 'Castle, cabinet, door',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Seventh room, Combat',
+    'environment' => 'Castle, table, door',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Eighth room',
+    'environment' => 'Castle, chest',
+    'notes' => 'A sack of 50 + 1d100 Silver coins (5 - 15 gp). When the items are removed from the chest 4 gelatinous cubes appear and attempt to absorb the players.'
+  }
+]
+Dungeon.create(
+  name: 'Invaded Castle',
+  rooms: JSON.dump(invaded_castle_rooms),
+  dungeonable: invaded_castle
+)
+
+jail = Quest.create(
+  name: 'jail',
+  level: 3,
+  order: 6,
+  description: 'Sir Lorenzo (Human, male, businessman) has been kidnapped. He is being held as prisoner by Bonecrushers. Trebirok hires characters rescue Sir Lorenzo. Jail is located on mountain in south part of Clam Island.',
+  reward: '15 gp and 450 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: silverpearl
+)
+cell_keys = jail.items.create(
+  name: 'Cell Keys',
+  description: 'Held by the thug, they unlock all the cells.',
+)
+jail_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Mountain, prison, door'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Prison, table, chair, bench, door',
+    'creatures' => [
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      },
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Second room, Combat',
+    'environment' => 'Prison, hallway, three doors',
+    'creatures' => [
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      },
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Third room',
+    'environment' => 'Prison, torture table'
+  },
+  {
+    'name' => 'Fourth room, Combat',
+    'environment' => 'Prison, barrels, grain sacks, shelf',
+    'creatures' => [
+      {
+        'id' => rat.id,
+        'name' => rat.name,
+        'count' => 3
+      }
+    ],
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Fifth room, Combat',
+    'environment' => 'Prison, stairs down, hallway, door',
+    'creatures' => [
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Sixth room',
+    'environment' => 'Prison, six cells, two doors',
+    'notes' => 'There are six tiny cells in this room. Each cell is divided by bars and door. Sir Lorenzo is held in one of the cells. Door is locked. Roll Athletics (Strength) check, DC 20 if character tries to open the lock by brute force. Roll Sleight of Hand (Dexterity) check, DC 15 if character tries to pick the lock. If one of these rolls succeeds, reward each character with 100 XP. If both checks fail only "Cell keys" can open the lock.'
+  },
+  {
+    'name' => 'Seventh room',
+    'environment' => 'Prison, three pairs of handcuffs on walls',
+    'items' => [
+      {
+        'id' => whip.id,
+        'name' => whip.name,
+        'count' => 2
+      }
+    ]
+  },
+  {
+    'name' => 'Eighth room, Combat',
+    'environment' => 'Prison, hallway, four cells',
+    'creatures' => [
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      },
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 2
+      }
+    ],
+    'item' => [
+      {
+        'id' => cell_keys.id,
+        'name' => cell_keys.name,
+        'count' => 1
+      }
+    ],
+    'notes' => 'There are four tiny cells in this room. Each cell is divided by bars and door.'
+  },
+]
+Dungeon.create(
+  name: 'Jail',
+  rooms: JSON.dump(jail_rooms),
+  dungeonable: jail
+)
+
+warehouse_at_whitestrand = Quest.create(
+  name: 'Warehouse at Whitestrand',
+  level: 3,
+  order: 7,
+  description: 'Trebirok hires characters to raid a Bonecrusher warehouse in Whitestrand.',
+  reward: '15 gp and 450 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: whitestrand
+)
+warehouse_at_whitestrand_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Village, warehouse, door'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Warehouse, crates, two doors',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => bandit.id,
+        'name' => bandit.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Second room',
+    'environment' => 'Warehouse, crates',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Third room, Combat',
+    'environment' => 'Warehouse, crates, window, door',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 1
+      }
+    ],
+    'notes' => 'Edge of the window is located at height of 1 meter. (3,3 feet)'
+  },
+  {
+    'name' => 'Fourth room',
+    'environment' => 'Warehouse, crates, two doors',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Fifth room, Combat',
+    'environment' => 'Warehouse, crates, chest, two doors',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      }
+    ],
+    'items' => [
+      {
+        'id' => silver_bar.id,
+        'name' => silver_bar.name,
+        'count' => 1
+      },
+    ],
+    'notes' => '20 + 1d10 Silver coins (2-3 gp). First door leads to to sixth room. Second door leads out of the dungeon.'
+  },
+  {
+    'name' => 'Sixth room, Combat',
+    'environment' => 'Warehouse, barrels',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 2
+      }
+    ],
+  },
+]
+Dungeon.create(
+  name: 'Warehouse at Whitestrand',
+  rooms: JSON.dump(warehouse_at_whitestrand_rooms),
+  dungeonable: warehouse_at_whitestrand
+)
+
+ogre_cave = Quest.create(
+  name: 'Ogre Cave',
+  level: 4,
+  order: 8,
+  description: 'Trebirok hires characters to raid an ogre cave. Ogre cave is located deep in jungle in middle part of Clam Island.',
+  reward: '20 gp and 600 XP',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: silverpearl
+)
+ogre_cave_rooms = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Jungle, natural cave, tunnel'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Natural cave, plants, tunnel',
+    'creatures' => [
+      {
+        'id' => ogre.id,
+        'name' => ogre.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Second room',
+    'environment' => 'Warehouse, crates, two doors'
+  },
+  {
+    'name' => 'Third room, Combat',
+    'environment' => 'Natural cave, plants, tunnel',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Fourth room, Combat',
+    'environment' => 'Natural cave, plants, large rock, tunnel',
+    'creatures' => [
+      {
+        'id' => ogre.id,
+        'name' => ogre.name,
+        'count' => 1
+      }
+    ],
+    'notes' => 'As first action in combat the ogre grabs a large rock and throws it towards one of the characters. Roll Acrobatics (Dexterity) check, DC 10 to avoid damage. If check fails character takes 3d6+3 damage.'
+  },
+  {
+    'name' => 'Fifth room',
+    'environment' => 'Natural cave, oasis, plants, tunnel',
+  },
+  {
+    'name' => 'Sixth room, Combat',
+    'environment' => 'Natural cave, plants, tunnel',
+    'creatures' => [
+      {
+        'id' => ogre.id,
+        'name' => ogre.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Seventh room',
+    'environment' => 'Natural cave, plants, campfire, backpack, dead end',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 2
+      }
+    ],
+    'notes' => '1 + 1d4 Gold coins (2 - 5 gp)'
+  },
+  {
+    'name' => 'Eighth room, Combat',
+    'environment' => 'Natural cave, plants, tunnel',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 2
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Ninth room',
+    'environment' => 'Natural cave, plants, tunnel',
+  },
+  {
+    'name' => 'Tenth room, Combat',
+    'environment' => 'Natural cave, plants, dead end',
+    'creatures' => [
+      {
+        'id' => ogre.id,
+        'name' => ogre.name,
+        'count' => 2
+      }
+    ]
+  }
+]
+Dungeon.create(
+  name: 'Ogre Cave',
+  rooms: JSON.dump(ogre_cave_rooms),
+  dungeonable: ogre_cave
+)
+
+pirate_cove = Quest.create(
+  name: 'Pirate Cove',
+  level: 4,
+  order: 9,
+  description: 'Trebirok hires characters to raid a pirate cove. Bonecrusher Cove is located on beach at northernmost part of Clam Island.',
+  reward: '1000 gp',
+  main_quest: house_of_mecenaries,
+  completed: false,
+  questable: silverpearl
+)
+object = {}
+object['name'] =                    'Pirate captain "One-eye"'
+object['size'] =                    'Medium'
+object['body_type'] =               'humanoid'
+object['sub_body_type'] =           'human'
+object['tag'] =                     ''
+object['alignment'] =               'chaotic evil'
+
+object['armor_class'] =             15
+object['armor_name'] =              'studded leather'
+object['hit_points'] =              65
+object['hit_dice'] =                '10d8 + 20'
+
+object['speed'] =                   '30 ft'
+object['burrow_speed'] =            ''
+object['climb_speed'] =             ''
+object['fly_speed'] =               ''
+object['swim_speed'] =              ''
+
+object['strength'] =                11
+object['dexterity'] =               16
+object['constitution'] =            15
+object['intelligence'] =            9
+object['wisdom'] =                  13
+object['charisma'] =                14
+
+object['strength_save'] =           ''
+object['dexterity_save'] =          ''
+object['constitution_save'] =       ''
+object['intelligence_save'] =       ''
+object['wisdom_save'] =             ''
+object['charisma_save'] =           ''
+
+object['damage_vulnerabilities'] =  ''
+object['damage_resistances'] =      ''
+object['damage_immunities'] =       ''
+object['condition_immunities'] =    ''
+
+object['senses'] =                  'passive Perception 10'
+object['challenge_rating'] =        2
+object['languages'] =               'Common, draconic, orcish'
+
+object['skills'] =                  ''
+object['actions_json'] = [
+  {
+    'name' => 'Multi-attack',
+    'desc' => 'Pirate captain "One-eye" makes two melee attacks.'
+  },
+  {
+    'name' => 'Scimitar',
+    'desc' => '*Melee Weapon Attack:* +5 to hit, reach 5ft., one target. *Hit:* 6 (1d6 + 3) slashing damage.'
+  }
+].to_json
+object['special_abilities_json'] = [
+  {
+    'name' => 'Aggressive',
+    'desc' => 'As a bonus action, pirate captain "One-eye" can move up to its speed toward a hostile creature that it can see.'
+  }
+].to_json
+object['reactions_json'] =          creature['reactions'].to_json if creature['reactions']
+object['legendary_actions_json'] =  creature['legendary_actions'].to_json if creature['legendary_actions']
+
+object['legendary_desc'] =          creature['legendary_desc'].to_json if creature['legendary_desc']
+pirate_captain = Creature.create!(object)
+ogre_cave = [
+  {
+    'name' => 'Entrance',
+    'environment' => 'Beach, natural cave, tunnel'
+  },
+  {
+    'name' => 'First room, Combat',
+    'environment' => 'Natural cave, cliff, rope ladders',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      }
+    ],
+    'notes' => 'Height of the cliff is 6 meters. (20 feet) Characters can climb up rope ladders to top of cliff.'
+  },
+  {
+    'name' => 'Second room',
+    'environment' => 'Natural cave, rocks, two tunnels',
+  },
+  {
+    'name' => 'Third room',
+    'environment' => 'Natural cave, barrels, shelf, dead end',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Fourth room, Combat',
+    'environment' => 'Natural cave, boardwalk, door',
+    'creatures' => [
+      {
+        'id' => berserker.id,
+        'name' => berserker.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Fifth room, Combat',
+    'environment' => 'Natural cave, boardwalk, door',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Sixth room',
+    'environment' => 'Natural cave, boardwalk, water, door',
+    'notes' => 'Roll Perception (Wisdom, passive) check, DC 12. If check fails characters do not spot the trap. When character opens the door to seventh room to an arrow trap launches causing 3d8 damage. If characters have spotted the trap they can try to disable it. Roll Investigation (Intelligence) check, DC 10. If check fails the arrow trap launches causing 3d8 damage.'
+  },
+  {
+    'name' => 'Seventh room, Combat',
+    'environment' => 'Natural cave, boardwalk, two doors',
+    'creatures' => [
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Eighth room, Combat',
+    'environment' => 'Natural cave, boardwalk, barrels',
+  },
+  {
+    'name' => 'Ninth room, Combat',
+    'environment' => 'Natural cave, boardwalk, barrels',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      },
+      {
+        'id' => lizardfolk.id,
+        'name' => lizardfolk.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Tenth room, Combat',
+    'environment' => 'Natural cave, water, suspension bridge, door',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 1
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 2
+      }
+    ],
+  },
+  {
+    'name' => 'Eleventh room, Combat',
+    'environment' => 'Natural cave, boardwalk, stairs down, door',
+    'creatures' => [
+      {
+        'id' => berserker.id,
+        'name' => berserker.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Twelveth room',
+    'environment' => 'Natural cave, boardwalk, barrels, shelf, door',
+    'items' => [
+      {
+        'id' => potion_of_healing.id,
+        'name' => potion_of_healing.name,
+        'count' => 1
+      }
+    ],
+  },
+  {
+    'name' => 'Thirteenth room, Combat',
+    'environment' => 'Natural cave, rocks, tunnel',
+    'creatures' => [
+      {
+        'id' => orc.id,
+        'name' => orc.name,
+        'count' => 2
+      },
+      {
+        'id' => thug.id,
+        'name' => thug.name,
+        'count' => 1
+      }
+    ]
+  },
+  {
+    'name' => 'Fourteenth room, Combat',
+    'environment' => 'Natural cave, rocks, tunnel',
+    'creatures' => [
+      {
+        'id' => pirate_captain.id,
+        'name' => pirate_captain.name,
+        'count' => 1
+      }
+    ]
+  }
+]
+
 
 # the_blight = MainQuest.create(
 #   name: 'The Blight',
