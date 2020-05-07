@@ -30,3 +30,8 @@ rails server
 ## Todo
 
 fix true neutral
+
+
+Update warehouse_map
+blasting powder in store
+
