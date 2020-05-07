@@ -1,6 +1,8 @@
 React = require('react')
 ReactDOM = require('react-dom')
 axios = require('axios')
+Draggable = require('react-draggable')
+DraggableCore = Draggable.DraggableCore
 
 e = React.createElement
 
@@ -24,7 +26,8 @@ class InitiativeTable extends React.Component
       room_names: room_names,
       dungeon_rooms: dungeon_rooms_json,
       active_room: room_names[0],
-      battling_creatures: []
+      battling_creatures: [],
+      floating_statblocks: []
     }
 
     @handle_room_change = @handle_room_change.bind(@)
@@ -38,6 +41,7 @@ class InitiativeTable extends React.Component
     @decrease_creature_initiative = @decrease_creature_initiative.bind(@)
     @damage_creature = @damage_creature.bind(@)
     @heal_creature = @heal_creature.bind(@)
+    @display_statblock = @display_statblock.bind(@)
 
   handle_room_change: () ->
     old_room_name = @room_name
@@ -100,7 +104,7 @@ class InitiativeTable extends React.Component
                                     e 'td', null, e 'p', { className: 'mb-0', style: { fontSize: '1.5rem' } }, creature['count']
                                     e 'td', null,
                                       e 'div', { className: 'btn-group', role: 'group' },
-                                        e 'button', { type: 'button', className: 'btn btn-primary' },
+                                        e 'a', { type: 'button', className: 'btn btn-primary', href: "/creatures/#{creature['id']}/statblock", target: '_blank' },
                                           e 'i', { className: 'far fa-eye' }
                                         e 'button', { type: 'button', className: 'btn btn-success', onClick: @add_battling_creature },
                                           e 'i', { className: 'fas fa-plus' }
@@ -123,7 +127,7 @@ class InitiativeTable extends React.Component
                                 e 'td', null, e 'p', { className: 'mb-0', style: { fontSize: '1.5rem' } }, item['name']
                                 e 'td', null, e 'p', { className: 'mb-0', style: { fontSize: '1.5rem' } }, item['count']
                                 e 'td', null, e 'p', { className: 'mb-0', style: { fontSize: '1.5rem' } },
-                                  e 'button', { type: 'button', className: 'btn btn-primary' },
+                                  e 'a', { type: 'button', className: 'btn btn-primary', href: "/creatures/#{item['id']}/statblock", target: '_blank' },
                                     e 'i', { className: 'far fa-eye' }
         )
       item_table =  e 'table', { className: 'table table-bordered' },
@@ -270,6 +274,47 @@ class InitiativeTable extends React.Component
     current_health += increment
     battling_creatures[creature_id].current_health = current_health
     @setState({ battling_creatures: battling_creatures })
+
+  display_statblock: () ->
+    list_of_parents = $(event.target).parentsUntil('tbody')
+    name_p = $(list_of_parents[list_of_parents.length - 1]).find('p')[0]
+    creature_name = $(name_p).html()
+    search_url = "/creatures/search/?name=#{creature_name}"
+
+    that = @
+
+    axios.get(search_url)
+      .then((response) ->
+        data = response.data
+
+        creature_id = data.id
+        creature_name = data.name
+        statblock_url = "/creatures/#{creature_id}/statblock"
+        
+        statblock = 'There was an error'
+        axios.get(statblock_url)
+          .then((response) ->
+            statblock = response.data
+
+            temp_floating_statblocks = that.state.floating_statblocks
+            temp_floating_statblocks.push(statblock)
+            that.setState({ floating_statblocks: temp_floating_statblocks })
+
+            # console.log(draggle_statblock)
+            # # ReactDOM.createPortal(draggle_statblock, document.body)
+            # # $('#simulator_app').attr({ class: 'hello' })
+            # # document.body.appendChild('sapethg')
+            # $(document.body).append('Hello')
+            # $(document.body).append(statblock)
+            # # ReactDOM.render(draggle_statblock, document.body)
+          )
+          # .catch((error) ->
+          #   alert('No statblock found for creature!')
+          # )
+      )
+      .catch((error) ->
+        alert('No creature found!')
+      )
 
   render: ->
     dungeon_room_options = @create_room_options()
