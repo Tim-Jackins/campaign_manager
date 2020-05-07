@@ -9,8 +9,8 @@ Rails.application.configure do
     port: 587,
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: 'timmins.jack595@gmail.com',
-    password: 'mn1jat1mflgmpi#135'
+    user_name: 'example@mail.com',
+    password: 'password'
   }
 
   # In the development environment your application's code is reloaded on
