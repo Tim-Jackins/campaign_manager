@@ -123,14 +123,13 @@ class CreaturesController < ApplicationController
       @ability_scores = AbilityScore.pluck('full_name')
       @skills = Skill.pluck('name')
 
-      challenge_ratings_json = ChallengeRating.all.to_json(only: [:rating, :xp])
+      challenge_ratings_json = ChallengeRating.all.to_json(only: %i[rating xp])
       @challenge_ratings = JSON.parse(challenge_ratings_json)
       render 'edit'
     end
   end
 
   def search
-    puts params['name']
     @creature = Creature.find_by(name: params['name'])
     if @creature
       render json: @creature.to_json
