@@ -4,6 +4,7 @@ require 'json'
 url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/src/5e-SRD-Equipment.json'
 
 count = {
+  'Treasure' => 0,
   'Weapon' => 0,
   'Armor' => 0,
   'Adventuring Gear' => 0,
@@ -19,6 +20,15 @@ open(url) do |items_request|
     object = {}
 
     case item['equipment_category']
+    when 'Treasure'
+      count['Treasure'] += 1
+
+      object['name'] = item['name'] if item['name']
+      object['description'] = 'Builtin weapon'
+      object['category'] = item['equipment_category'] if item['equipment_category']
+      object['cost'] = item['cost']['quantity'].to_s + item['cost']['unit'] if item['cost']['quantity'] && item['cost']['unit']
+      object['weight'] = item['weight'] if item['weight']
+      object['rarity'] = 'Common'
     when 'Weapon'
       count['Weapon'] += 1
 
