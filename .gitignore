@@ -44,4 +44,4 @@ database_command.sh
 
 *.sqlite3
 
-*_campaign.seeds.rb
+/db/seeds/*_campaign.seeds.rb
