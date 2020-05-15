@@ -43,3 +43,5 @@ database_plan.xml
 database_command.sh
 
 *.sqlite3
+
+*_campaign.seeds.rb
