@@ -61,8 +61,6 @@ open(url) do |creatures_request|
 
     object['legendary_desc'] =          creature['legendary_desc'].to_json if creature['legendary_desc']
 
-    # t.text :spells_json # Figure out how to fix this
-
     Creature.create!(object)
   end
 
