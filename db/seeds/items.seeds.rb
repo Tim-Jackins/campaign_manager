@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 require 'json'
 
 url = 'https://raw.githubusercontent.com/Tim-Jackins/5e-database/master/src/5e-SRD-Equipment.json'
 
 count = {
+  'Magic Items' => 0,
   'Treasure' => 0,
   'Weapon' => 0,
   'Armor' => 0,
@@ -20,6 +23,15 @@ open(url) do |items_request|
     object = {}
 
     case item['equipment_category']
+    when 'Magic Items'
+      count['Treasure'] += 1
+
+      object['name'] = item['name'] if item['name']
+      object['description'] = item['description']
+      object['category'] = item['equipment_category'] if item['equipment_category']
+      object['cost'] = item['cost']['quantity'].to_s + item['cost']['unit'] if item['cost']['quantity'] && item['cost']['unit']
+      object['weight'] = item['weight'] if item['weight']
+      object['rarity'] = item['rarity']
     when 'Treasure'
       count['Treasure'] += 1
 
@@ -47,7 +59,7 @@ open(url) do |items_request|
       object['dice_value'] = item['damage']['dice_value'] if item['damage']['dice_value']
       object['damage_type'] = item['damage']['damage_type']['name'] if item['damage']['damage_type']['name']
 
-      object['properties'] = item['properties'].map{ |property| property['name'] }.join(', ') if item['property']
+      object['properties'] = item['properties'].map { |property| property['name'] }.join(', ') if item['property']
     when 'Armor'
       count['Armor'] += 1
 
