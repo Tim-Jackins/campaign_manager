@@ -1,11 +1,6 @@
+# frozen_string_literal: true
+
 require 'json'
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 seed_path = File.join(Rails.root, 'db', 'seeds') + '/'
 
@@ -79,7 +74,6 @@ puts 'Creating Alignment Choices as defined in ' + seed_path[0..-7] + 'seeds.rb'
 alignment_choices.each do |name, description|
   AlignmentChoice.create!(name: name, description: description)
 end
-
 
 # CITATION
 # Seed data from https://roll20.net/compendium/dnd5e/Conditions#content
