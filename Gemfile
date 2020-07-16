@@ -27,7 +27,7 @@ gem 'devise'
 gem 'barista'
 #gem 'therubyracer', :require => nil
 gem 'activeadmin'
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.5.0'
 gem 'redcarpet'
 gem 'active_model_serializers'
 

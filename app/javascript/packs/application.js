@@ -5,10 +5,14 @@
 
 require("@rails/ujs").start()
 require('jquery')
+require('bootstrap')
+require('popper.js')
+require('holderjs')
 require('react')
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+
 // import './bootstrap_custom.js'
 // jahsdjah = require react
 
