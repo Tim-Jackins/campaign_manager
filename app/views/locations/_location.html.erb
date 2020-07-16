@@ -53,7 +53,12 @@
             <strong><%= "#{encounter.name} (level #{encounter.level})" %></strong>
             <div class="btn-group pull-right" role="group">
               <a role="button" class="btn btn-secondary" href="<%= edit_campaign_encounter_path(@campaign, encounter) %>">edit / add dungeon</a>
-              <a role="button" class="btn btn-secondary" href="#">load into simulator</a>
+
+              <% if encounter.dungeon %>
+                <a role="button" class="btn btn-secondary" href="<%= campaign_dungeon_simulate_path(@campaign, encounter.dungeon) %>">load into simulator</a>
+              <% else %>
+                <a role="button" class="btn btn-secondary disabled" href="">load into simulator</a>
+              <% end %>
             </div>
           </li>
         <% end %>
@@ -83,7 +88,12 @@
                 <%= encounter.name %>
                 <div class="btn-group pull-right" role="group">
                   <a role="button" class="btn btn-secondary" href="<%= edit_campaign_encounter_path(@campaign, encounter) %>">edit / add dungeon</a>
-                  <a role="button" class="btn btn-secondary" href="<%= campaign_dungeon_simulate_path(@campaign, encounter.dungeon) %>">load into simulator</a>
+
+                  <% if encounter.dungeon %>
+                    <a role="button" class="btn btn-secondary" href="<%= campaign_dungeon_simulate_path(@campaign, encounter.dungeon) %>">load into simulator</a>
+                  <% else %>
+                    <a role="button" class="btn btn-secondary disabled" href="">load into simulator</a>
+                  <% end %>
                 </div>
               </li>
             <% end %>
