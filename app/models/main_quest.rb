@@ -7,13 +7,13 @@ class MainQuest < ApplicationRecord
 
   def quest_progress
     total_quests = quests.size
-    quests_query = quests.find_by(completed: true)
+    quests_query = quests.where(completed: true)
     completed_quests  = if quests_query.nil? # rubocop:disable Layout/ExtraSpacing, Layout/SpaceAroundOperators
                           0
                         elsif quests_query.instance_of? Quest
                           1
                         else
-                          completed_quests.size
+                          quests_query.size
                         end
 
     [completed_quests, total_quests]
