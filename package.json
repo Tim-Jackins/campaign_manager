@@ -9,7 +9,7 @@
     "@rails/webpacker": "^4.0.7",
     "acorn": "^7.2.0",
     "autosize": "^4.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.0",
     "cjsx-loader": "^3.0.0",
